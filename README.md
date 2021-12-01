@@ -11,6 +11,8 @@ Run the per-day scripts with your own custom input:
 
 	poetry run aoc --help
 	poetry run aoc --day 1 --input-file my_input1.txt
+	poetry run aoc --day 2 --solution2 --input-file my_input1.txt
+	poetry run aoc -d 3 -2 -i my_input1.txt
 
 ## Development
 
