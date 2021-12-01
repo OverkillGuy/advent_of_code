@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "advent_of_code_2021"
+version = "0.1.0"
+description = "Solving Advent of Code 2021 with Python"
+authors = ["Jb Doyon <jb@jiby.tech>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+aoc = 'advent_of_code_2021.aoc_runner:cli'
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+pytest-cov = "^3.0.0"
+# Formatters
+black = "^21.11b1"
+isort = "^5.7.0"
+# Python typechecker
+mypy = "^0.910"
+# Flake8 "mega-linter" (and plugins)
+flake8 = "^4.0.1"
+bandit = "^1.7.0"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "^21.3.2"
+flake8-docstrings = "^1.6.0"
+# Pylint is a competitor of flake8, shows redundant errors = disabled
+# pylint = "^2.7.2"
+# flake8-pylint = "^0.1.1"
+# Dead code checker (disabled because fussy/noisy)
+# vulture = "^2.3"
+# CVE dependency checker
+safety = "^1.10.3"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# Make isort work with Black
+# Avoids conflicting imports
+# As per https://pycqa.github.io/isort/docs/configuration/black_compatibility/#using-a-config-file-such-as-isortcfg
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+# Avoid pointless warning about performance hit of f-string in loggers
+[tool.pylint.message_control]
+disable = ["logging-fstring-interpolation"]
