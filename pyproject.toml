@@ -47,3 +47,12 @@ multi_line_output = 3
 # Avoid pointless warning about performance hit of f-string in loggers
 [tool.pylint.message_control]
 disable = ["logging-fstring-interpolation"]
+
+
+[tool.pytest.ini_options]
+addopts = """-vv \
+	  --cov=advent_of_code_2021 \
+	  --cov-report=xml:test_results/coverage.xml \
+	  --cov-report=html:test_results/coverage.html \
+	  --cov-report=term \
+	  --junit-xml=test_results/results.xml"""

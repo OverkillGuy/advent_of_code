@@ -13,11 +13,7 @@ lint:  # Use all linters on all files (not just staged for commit)
 
 .PHONY: test
 test:
-	poetry run pytest \
-		--cov=advent_of_code_2021 \
-		--cov-report=term \
-		--cov-report=xml:test_results/coverage.xml \
-		--junit-xml=test_results/results.xml
+	poetry run pytest
 
 .PHONY: build
 build:
