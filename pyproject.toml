@@ -52,6 +52,7 @@ disable = ["logging-fstring-interpolation"]
 
 [tool.pytest.ini_options]
 addopts = """-vv \
+	  --doctest-modules \
 	  --cov=advent_of_code_2021 \
 	  --cov-report=xml:test_results/coverage.xml \
 	  --cov-report=html:test_results/coverage.html \
