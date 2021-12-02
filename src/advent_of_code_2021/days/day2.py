@@ -1,11 +1,21 @@
 """Day 2 solution using Complex numbers for 2D vectors"""
 
+from enum import Enum
 from typing import Dict, List
 
+
+class Direction(str, Enum):
+    """Sonar directions"""
+
+    FORWARD = "forward"
+    DOWN = "down"
+    UP = "up"
+
+
 DIRECTIONS_VECTOR: Dict[str, complex] = {
-    "forward": 1 + 0j,
-    "down": 0 + 1j,
-    "up": 0 - 1j,
+    Direction.FORWARD: 1 + 0j,
+    Direction.DOWN: 0 + 1j,
+    Direction.UP: 0 - 1j,
 }
 
 
