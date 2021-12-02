@@ -2,6 +2,8 @@
 
 from typing import List
 
+from advent_of_code_2021.input_list import to_integer_list
+
 
 def solution1(input_list: List[int]) -> int:
     """Solve day1 solution1 via zips
@@ -26,3 +28,13 @@ def solution2(input_list: List[int]) -> int:
         i0 + i1 + i2 for i0, i1, i2 in zip(input_list, off_by_one_list, off_by_two_list)
     ]
     return solution1(totals)
+
+
+def solve1_stringlist(input_list: List[str]) -> int:
+    """Convert list to proper format and solve day1 solution1"""
+    return solution1(to_integer_list(input_list))
+
+
+def solve2_stringlist(input_list: List[str]) -> int:
+    """Convert list to proper format and solve day1 solution2"""
+    return solution2(to_integer_list(input_list))

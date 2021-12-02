@@ -9,7 +9,7 @@ from advent_of_code_2021.days import day0, day1
 DAYS: Dict[int, Dict[int, Callable]] = {
     # Dummy day0 with real function to run tests
     0: {1: day0.solution1, 2: day0.solution2},
-    1: {1: day1.solution1, 2: day1.solution2},
+    1: {1: day1.solve1_stringlist, 2: day1.solve2_stringlist},
     # Fake day29 with just no solution2
     29: {1: lambda x: True},
 }
@@ -49,5 +49,5 @@ def cli():
         )
         sys.exit(1)
     solve_function = day_selected[solution_selected]
-    input_list = [int(i) for i in args.input_file.readlines()]
+    input_list = args.input_file.readlines()
     print(solve_function(input_list))
