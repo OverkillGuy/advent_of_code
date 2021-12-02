@@ -2,18 +2,9 @@
 
 import argparse
 import sys
-from typing import Callable, Dict, List
+from typing import List
 
-from advent_of_code_2021.days import day0, day1, day2
-
-DAYS: Dict[int, Dict[int, Callable]] = {
-    # Dummy day0 with real function to run tests
-    0: {1: day0.solution1, 2: day0.solution2},
-    1: {1: day1.solve1_stringlist, 2: day1.solve2_stringlist},
-    2: {1: day2.solution1},
-    # Fake day29 with just no solution2
-    29: {1: lambda x: True},
-}
+from advent_of_code_2021.solutions_lookup import SOLUTION_LOOKUP_DAYS
 
 
 def parse_arguments(arguments: List[str]) -> argparse.Namespace:
@@ -38,10 +29,10 @@ def parse_arguments(arguments: List[str]) -> argparse.Namespace:
 def cli():
     """Run the aoc cli"""
     args = parse_arguments(sys.argv[1:])
-    if args.day not in DAYS:
+    if args.day not in SOLUTION_LOOKUP_DAYS:
         print(f"Day {args.day} isn't solved right now", file=sys.stderr)
         sys.exit(1)
-    day_selected = DAYS[args.day]
+    day_selected = SOLUTION_LOOKUP_DAYS[args.day]
     solution_selected = 2 if args.solution2 else 1
     if solution_selected not in day_selected:
         print(
