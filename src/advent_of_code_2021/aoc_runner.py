@@ -2,10 +2,11 @@
 
 import argparse
 import sys
+from typing import Callable, Dict, List
 
 from advent_of_code_2021.days import day0, day1
 
-DAYS = {
+DAYS: Dict[int, Dict[int, Callable]] = {
     # Dummy day0 with real function to run tests
     0: {1: day0.solution1, 2: day0.solution2},
     1: {1: day1.solution1, 2: day1.solution2},
@@ -14,7 +15,7 @@ DAYS = {
 }
 
 
-def parse_arguments(arguments):
+def parse_arguments(arguments: List[str]) -> argparse.Namespace:
     """Parse generic arguments, given as parameters"""
     parser = argparse.ArgumentParser("aoc", description="Advent of Code runner 2021")
     parser.add_argument(

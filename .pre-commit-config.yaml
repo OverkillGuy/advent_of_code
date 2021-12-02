@@ -51,15 +51,14 @@ repos:
     hooks:
       - id: docker-compose-check
         name: Docker-compose.yaml validity
-# Linters that spot ongoing errors/warnings that need fixing/tuning
-# -   repo: local
-#     hooks:
-#     -   id: mypy
-#         name: mypy
-#         entry: poetry run mypy --
-#         types: [python]
-#         language: system  # force running outside venv to find poetry
-#         pass_filenames: True
+-   repo: local
+    hooks:
+    -   id: mypy
+        name: mypy
+        entry: poetry run mypy src/
+        types: [python]
+        language: system  # force running outside venv to find poetry
+        pass_filenames: False
 -   repo: local
     hooks:
     -   id: flake8
