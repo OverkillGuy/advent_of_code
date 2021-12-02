@@ -67,4 +67,18 @@ def apply_movement_aim(before: Pose, movement: str) -> Pose:
     >>> apply_movement_aim(Pose(position=13, depth=40, aim=10), "forward 2")
     Pose(position=15, depth=60, aim=10)
     """
-    return Pose(0, 0, 0)
+    direction, distance_str = movement.split(" ")
+    distance = int(distance_str)
+
+    if direction == Direction.DOWN:
+        return Pose(before.position, before.depth, before.aim + distance)
+    if direction == Direction.UP:
+        return Pose(before.position, before.depth, before.aim - distance)
+    if direction == Direction.FORWARD:
+        return Pose(
+            position=before.position + distance,
+            depth=before.depth + before.aim * distance,
+            aim=before.aim,
+        )
+    else:
+        raise KeyError(f"Bad direction: '{direction}'")
