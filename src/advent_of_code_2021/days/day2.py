@@ -82,3 +82,16 @@ def apply_movement_aim(before: Pose, movement: str) -> Pose:
         )
     else:
         raise KeyError(f"Bad direction: '{direction}'")
+
+
+def solution2(input_list: List[str]) -> int:
+    """Solve day2 solution2
+
+    >>> d = ["forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2"]
+    >>> solution2(d)
+    900
+    """
+    pose = Pose(position=0, depth=0, aim=0)
+    for movement in input_list:
+        pose = apply_movement_aim(pose, movement)
+    return pose.position * pose.depth
