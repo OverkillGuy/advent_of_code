@@ -112,6 +112,10 @@ def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> i
     ...               "11100", "10000", "11001", "00010", "01010"],
     ...               use_most_common_digit=True)
     23
+    >>> bit_criteria(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
+    ...               "11100", "10000", "11001", "00010", "01010"],
+    ...               use_most_common_digit=False)
+    10
     """
     number_bits = len(input_list[0])
     searched_list = input_list
@@ -126,7 +130,9 @@ def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> i
         digit_searched_or_none: Optional[int] = reference_list[current_bit_position]
         # equal number of 1 and 0 (marked as None) should filter on 1
         digit_searched: int = (
-            1 if digit_searched_or_none is None else digit_searched_or_none
+            int(use_most_common_digit)
+            if digit_searched_or_none is None
+            else digit_searched_or_none
         )
         filtered_list = [
             number
@@ -139,3 +145,19 @@ def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> i
             current_bit_position += 1
             searched_list = filtered_list
     raise ValueError("No number matched the bit criteria for oxygen generator")
+
+
+def solution2(input_list: List[str]) -> int:
+    r"""Solve day3 part 2
+
+    >>> solution2(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
+    ...            "11100", "10000", "11001", "00010", "01010"])
+    230
+    >>> solution2(["00100\n", "11110\n", "10110\n", "10111", "10101", "01111", "00111",
+    ...            "11100", "10000", "11001", "00010", "01010"])
+    230
+    """
+    numbers_list = [number_str.strip() for number_str in input_list]
+    oxygen_rating = bit_criteria(numbers_list, True)
+    co2_rating = bit_criteria(numbers_list, False)
+    return oxygen_rating * co2_rating
