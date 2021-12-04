@@ -34,12 +34,14 @@ def most_common_digits(input_list: List[str]) -> List[int]:
     """Find most common value of digit in a list
 
     >>> most_common_digits(["00100", "11110", "10110", "10111", "10101", "01111"])
-    [1, 0, 1, 1, 0]
+    [1, 0, 1, 1, 1]
+    >>> most_common_digits(["011", "001"])
+    [0, 1, 1]
     """
     digit_one_counts = count_one_digits(input_list)
     half_of_input = len(input_list) // 2
     return [
-        1 if digit_one_count > half_of_input else 0
+        1 if digit_one_count >= half_of_input else 0
         for digit_one_count in digit_one_counts
     ]
 
