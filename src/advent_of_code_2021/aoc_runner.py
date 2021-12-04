@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-from typing import List
+from typing import IO, Callable, List
 
 from advent_of_code_2021.solutions_lookup import SOLUTION_LOOKUP_DAYS
 
@@ -26,6 +26,11 @@ def parse_arguments(arguments: List[str]) -> argparse.Namespace:
     return parser.parse_args(arguments)
 
 
+def solve(input_fd: IO, solution: Callable) -> int:
+    """Compute the solution on a given input file"""
+    return solution(input_fd.readlines())
+
+
 def cli():
     """Run the aoc cli"""
     args = parse_arguments(sys.argv[1:])
@@ -40,6 +45,5 @@ def cli():
             file=sys.stderr,
         )
         sys.exit(1)
-    solve_function = day_selected[solution_selected]
-    input_list = args.input_file.readlines()
-    print(solve_function(input_list))
+    answer = solve(input_fd=args.input_file, solution=day_selected[solution_selected])
+    print(answer)
