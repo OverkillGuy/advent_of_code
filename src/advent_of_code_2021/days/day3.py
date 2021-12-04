@@ -46,6 +46,15 @@ def most_common_digits(input_list: List[str]) -> List[int]:
     ]
 
 
+def binary_not_digit_list(input_list: List[int]) -> List[int]:
+    """Inverse a binary number's values
+
+    >>> binary_not_digit_list([0, 1 , 1])
+    [1, 0, 0]
+    """
+    return [1 if digit == 0 else 0 for digit in input_list]
+
+
 def solution1(input_list: List[str]) -> int:
     r"""Solve day3 problem 1
 
@@ -58,9 +67,7 @@ def solution1(input_list: List[str]) -> int:
     """
     numbers_list = [number_str.strip() for number_str in input_list]
     gamma_digits = most_common_digits(numbers_list)
-    # Epsilon digits are opposite of (gamma_digit)
-    epsilon_digits = [
-        1 if digit_one_count == 0 else 0 for digit_one_count in gamma_digits
-    ]
+    # Epsilon digits are opposite of gamma_digit
+    epsilon_digits = binary_not_digit_list(gamma_digits)
     gamma, epsilon = digit_list_to_int(gamma_digits), digit_list_to_int(epsilon_digits)
     return gamma * epsilon
