@@ -23,27 +23,40 @@ def count_one_digits(input_list: List[str]) -> List[int]:
     >>> count_one_digits(["011110111110", "110111000111"])
     [1, 2, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1]
     """
-    numbers_list = [number_str.strip() for number_str in input_list]
-    digit_one_counts = [0] * len(numbers_list[0])
-    for number in numbers_list:
+    digit_one_counts = [0] * len(input_list[0])
+    for number in input_list:
         for digit_index, digit in enumerate(list(number)):
             digit_one_counts[digit_index] += int(digit)
     return digit_one_counts
 
 
+def most_common_digits(input_list: List[str]) -> List[int]:
+    """Find most common value of digit in a list
+
+    >>> most_common_digits(["00100", "11110", "10110", "10111", "10101", "01111"])
+    [1, 0, 1, 1, 0]
+    """
+    digit_one_counts = count_one_digits(input_list)
+    half_of_input = len(input_list) // 2
+    return [
+        1 if digit_one_count > half_of_input else 0
+        for digit_one_count in digit_one_counts
+    ]
+
+
 def solution1(input_list: List[str]) -> int:
-    """Solve day3 problem 1
+    r"""Solve day3 problem 1
 
     >>> solution1(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
     ...            "11100", "10000", "11001", "00010", "01010"])
     198
+    >>> solution1(["00100\n", "11110\n", "10110\n", "10111", "10101", "01111", "00111",
+    ...            "11100", "10000", "11001", "00010", "01010"])
+    198
     """
-    digit_one_counts = count_one_digits(input_list)
-    half_of_input = len(input_list) // 2
-    gamma_digits = [
-        1 if digit_one_count > half_of_input else 0
-        for digit_one_count in digit_one_counts
-    ]
+    numbers_list = [number_str.strip() for number_str in input_list]
+    gamma_digits = most_common_digits(numbers_list)
+    # Epsilon digits are opposite of (gamma_digit)
     epsilon_digits = [
         1 if digit_one_count == 0 else 0 for digit_one_count in gamma_digits
     ]
