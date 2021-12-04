@@ -1,6 +1,6 @@
 """Day 3, binary things"""
 
-from typing import List
+from typing import List, Optional
 
 
 def digit_list_to_int(digits: List[int]) -> int:
@@ -31,7 +31,7 @@ def count_one_digits(input_list: List[str]) -> List[int]:
 
 
 def most_common_digits(input_list: List[str]) -> List[int]:
-    """Find most common value of digit in a list
+    """Find most common value of digit in a list, biased to 1 on equality
 
     >>> most_common_digits(["00100", "11110", "10110", "10111", "10101", "01111"])
     [1, 0, 1, 1, 1]
@@ -46,6 +46,27 @@ def most_common_digits(input_list: List[str]) -> List[int]:
     ]
 
 
+def most_common_digits_balanced(input_list: List[str]) -> List[Optional[int]]:
+    """Find most common value of digit in a list, None if equality
+
+    >>> most_common_digits_balanced(["0010", "1110", "1010", "1011", "1011", "0111"])
+    [1, 0, 1, None]
+    >>> most_common_digits_balanced(["011", "001"])
+    [0, None, 1]
+    """
+    digit_one_counts = count_one_digits(input_list)
+    half_of_input = len(input_list) / 2
+    results: List[Optional[int]] = []
+    for digit_one_count in digit_one_counts:
+        if digit_one_count == half_of_input:
+            results.append(None)
+        elif digit_one_count > half_of_input:
+            results.append(1)
+        else:
+            results.append(0)
+    return results
+
+
 def binary_not_digit_list(input_list: List[int]) -> List[int]:
     """Inverse a binary number's values
 
@@ -53,6 +74,17 @@ def binary_not_digit_list(input_list: List[int]) -> List[int]:
     [1, 0, 0]
     """
     return [1 if digit == 0 else 0 for digit in input_list]
+
+
+def binary_not_digit_list_noneable(
+    input_list: List[Optional[int]],
+) -> List[Optional[int]]:
+    """Inverse a binary number's values, passing None through as-is
+
+    >>> binary_not_digit_list_noneable([0, 1, None])
+    [1, 0, None]
+    """
+    return [None if bit is None else 1 if bit == 0 else 0 for bit in input_list]
 
 
 def solution1(input_list: List[str]) -> int:
@@ -71,3 +103,39 @@ def solution1(input_list: List[str]) -> int:
     epsilon_digits = binary_not_digit_list(gamma_digits)
     gamma, epsilon = digit_list_to_int(gamma_digits), digit_list_to_int(epsilon_digits)
     return gamma * epsilon
+
+
+def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> int:
+    """Compute the bit criteria per part 2
+
+    >>> bit_criteria(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
+    ...               "11100", "10000", "11001", "00010", "01010"],
+    ...               use_most_common_digit=True)
+    23
+    """
+    number_bits = len(input_list[0])
+    searched_list = input_list
+    current_bit_position = 0
+    while current_bit_position < number_bits:
+        most_common_digit = most_common_digits_balanced(searched_list)
+        reference_list: List[Optional[int]] = (
+            most_common_digit
+            if use_most_common_digit
+            else binary_not_digit_list_noneable(most_common_digit)
+        )
+        digit_searched_or_none: Optional[int] = reference_list[current_bit_position]
+        # equal number of 1 and 0 (marked as None) should filter on 1
+        digit_searched: int = (
+            1 if digit_searched_or_none is None else digit_searched_or_none
+        )
+        filtered_list = [
+            number
+            for number in searched_list
+            if number[current_bit_position] == str(digit_searched)
+        ]
+        if len(filtered_list) == 1:
+            return digit_list_to_int([int(i) for i in filtered_list[0]])
+        else:
+            current_bit_position += 1
+            searched_list = filtered_list
+    raise ValueError("No number matched the bit criteria for oxygen generator")
