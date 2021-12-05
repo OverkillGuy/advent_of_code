@@ -1,7 +1,7 @@
 """Day4, a bingo game"""
 
 import re
-from typing import List, Tuple
+from typing import List, NamedTuple, Tuple
 
 import numpy as np
 from numpy import typing as npt
@@ -14,11 +14,17 @@ Grids = List[Grid]
 
 
 # A 2D grid of integers
-NumpyGrid = npt.NDArray[np.uint8]
+IntGrid = npt.NDArray[np.uint8]
 # A 2D grid of booleans
-CheckGrid = npt.NDArray[np.bool_]
+BoolGrid = npt.NDArray[np.bool_]
 # Aggregate of bool+int grid, for playing a round
-NpGrid = Tuple[NumpyGrid, CheckGrid]
+
+
+class NpGrid(NamedTuple):
+    """A 2D bingo grid and a boolean hit-mask"""
+
+    int_grid: IntGrid
+    bool_grid: BoolGrid
 
 
 num_regex = "([0-9]{2}| [0-9])"
@@ -72,6 +78,17 @@ simple_input = """7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,1
  2  0 12  3  7
 """
 
+sample_grid_np = np.array(
+    [
+        [50, 50, 88, 34, 0],
+        [56, 46, 5, 17, 31],
+        [29, 6, 38, 78, 68],
+        [75, 57, 15, 44, 83],
+        [89, 45, 43, 85, 72],
+    ],
+    dtype=np.uint8,
+)
+
 
 def parse_grids(input_str: str) -> Grids:
     r"""Read grids from string, returning array of grid-array
@@ -106,8 +123,10 @@ def parse_input(input_str: str) -> Tuple[NumbersDrawn, Grids]:
     """
     strings_list = input_str.split("\n")
     first_string, rest_string = strings_list[0], strings_list[1:]
+    print(f"{first_string=}")
     drawn_list = [int(i) for i in first_string.split(",")]
     grids = parse_grids("\n".join(rest_string))
+    print(f"{rest_string=}")
     return drawn_list, grids
 
 
@@ -124,4 +143,85 @@ def grid_list_to_np_grid(grid: Grid) -> NpGrid:
     True
     """
     np_grid = np.array(grid, dtype=np.uint8).reshape(W, H)
-    return (np_grid, np.zeros_like(np_grid, dtype=bool))
+    return NpGrid(np_grid, np.zeros_like(np_grid, dtype=bool))
+
+
+def draw(pick: int, grids: List[NpGrid]) -> List[NpGrid]:
+    """Draw the given pick on the given grids, updating hit-mask"""
+    grids_out: List[NpGrid] = []
+    for int_grid, bool_grid in grids:
+        matches_x, matches_y = np.where(int_grid == pick)
+        if len(matches_x):
+            for match_x, match_y in zip(matches_x, matches_y):
+                bool_grid[match_x, match_y] = True
+        grids_out.append(NpGrid(int_grid, bool_grid))
+    return grids_out
+
+
+def check_bingo(grid: NpGrid) -> bool:
+    """Check a single grid for bingo
+
+    >>> grid1: NpGrid = (np.array(sample_grid_np, dtype=np.uint8),
+    ...                  np.array([[False, False, False, False, False],
+    ...                            [False, False, False,  True, False],
+    ...                            [False, False, False, False, False],
+    ...                            [False, False, False, False, False],
+    ...                            [False, False, False, False, False]]))
+    >>> check_bingo(grid1)
+    False
+    >>> grid2: NpGrid = (np.array(sample_grid_np, dtype=np.uint8),
+    ...                  np.array([[True, True, True, True, True],
+    ...                            [False, False, False,  True, False],
+    ...                            [False, False, False, False, False],
+    ...                            [False, False, False, False, False],
+    ...                            [False, False, False, False, False]]))
+    >>> check_bingo(grid2)
+    True
+    >>> grid3: NpGrid = (np.array(sample_grid_np, dtype=np.uint8),
+    ...                  np.array([[False, True, False,  True, False],
+    ...                            [False, True, False,  True, False],
+    ...                            [False, True, False, False, False],
+    ...                            [False, True, False, False, False],
+    ...                            [False, True, False, False, False]]))
+    >>> check_bingo(grid3)
+    True
+    """
+    _, bool_grid = grid
+    bingo_row, bingo_col = np.all(bool_grid, axis=0), np.all(bool_grid, axis=1)
+    return bingo_row.any() or bingo_col.any()
+
+
+def calculate_score(grid: NpGrid, pick: int) -> int:
+    """Calculate the score of a given bingo-ed grid"""
+    int_grid, bool_grid = grid
+    # Reverse the bingo mask to find nonbingos
+    nonbingo_mask = np.logical_not(bool_grid)
+    # Filter the integer to only keep nonbingos (zero elsewhere)
+    nonbingo_ints_2d = int_grid * nonbingo_mask
+    # Flatten the 2D array into 1D sequence of ints and 0s
+    nonbingo_ints_1d = nonbingo_ints_2d.reshape(-1)
+    # Keep nonzero elements
+    nonbingo_ints_nozeroes = nonbingo_ints_1d[nonbingo_ints_1d != 0]
+    return sum(nonbingo_ints_nozeroes) * pick
+
+
+def solution1(input_strlist: List[str]) -> int:
+    r"""Solve day4 part 1
+
+    >>> solution1(simple_input.split('\n'))
+    4512
+    """
+    input_str = "\n".join(input_strlist)
+    numbers, grids = parse_input(input_str)
+    np_grids: List[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
+    # print(input_str)
+    for pick in numbers:
+        np_grids = draw(pick, np_grids)
+        for grid in np_grids:
+            is_bingo = check_bingo(grid)
+            if is_bingo:
+                print("Bingo!")
+                print(f"Grid: {grid}")
+                return calculate_score(grid, pick)
+    print(f"{np_grids=}")
+    return 0
