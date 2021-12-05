@@ -51,22 +51,20 @@ repos:
     hooks:
       - id: docker-compose-check
         name: Docker-compose.yaml validity
--   repo: local
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.910
     hooks:
     -   id: mypy
-        name: mypy
-        entry: poetry run mypy src/
-        types: [python]
-        language: system  # force running outside venv to find poetry
-        pass_filenames: False
--   repo: local
+        additional_dependencies: [numpy==1.21.4]
+-   repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
     hooks:
     -   id: flake8
-        name: flake8
-        entry: poetry run flake8 --output-file test_results/flake8.txt --tee src/ tests/
-        types: [python]
-        language: system
-        pass_filenames: False
+        args: ["--tee", "--output-file", "test_results/flake8_report.txt"]
+        additional_dependencies:
+          - "flake8-bandit==2.1.2"
+          - "flake8-bugbear==21.3.2"
+          - "flake8-docstrings==1.6.0"
 # -   repo: local
 #     hooks:
 #     -   id: vulture

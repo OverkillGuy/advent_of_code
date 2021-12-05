@@ -14,14 +14,18 @@ aoc = 'advent_of_code_2021.aoc_runner:cli'
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
 pytest-cov = "^3.0.0"
+pytest-clarity = "^1.0.1"
+pytest-datadir = "^1.3.1"
+
 # Formatters
 black = "^21.11b1"
 isort = "^5.7.0"
 # Python typechecker
-mypy = "^0.910"
+mypy = "^0.910"  # sync version in .pre-commit-config.yaml
 # Flake8 "mega-linter" (and plugins)
-flake8 = "^4.0.1"
+flake8 = "^4.0.1"  # sync version in .pre-commit-config.yaml
 bandit = "^1.7.0"
+# Sync these plugins in flake8 args of .pre-commit-config.yaml:
 flake8-bandit = "^2.1.2"
 flake8-bugbear = "^21.3.2"
 flake8-docstrings = "^1.6.0"
@@ -32,8 +36,6 @@ flake8-docstrings = "^1.6.0"
 # vulture = "^2.3"
 # CVE dependency checker
 safety = "^1.10.3"
-pytest-clarity = "^1.0.1"
-pytest-datadir = "^1.3.1"
 
 
 [build-system]

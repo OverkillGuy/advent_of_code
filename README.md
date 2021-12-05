@@ -2,7 +2,7 @@
 
 Solving Advent of Code 2021 with Python
 
-Requires Python 3.8
+Requires Python >3.8
 
 
 ## Usage
@@ -20,12 +20,20 @@ See the `features/` folder for an overview of the CLI and testing strategy in pl
 
 ### Python setup
 
-This repository uses Python3.8, using
+This repository uses Python>3.8, using
 [Poetry](https://python-poetry.org) as package manager to define a
 Python package inside `src/advent_of_code_2021/`.
 
 `poetry` will create virtual environments if needed, fetch
 dependencies, and install them for development.
+
+This codebase uses [pre-commit](https://pre-commit.com) to run linting
+tools like `flake8`.Use `pre-commit install` to install git pre-commit
+hooks to force running these checks before any code can be committed,
+use `make lint` to run these manually. Testing is provided by `pytest`
+separately in `make test`.
+
+Installation of `poetry` and `pre-commit` is recommended via [pipx](https://pypa.github.io/pipx/).
 
 
 For ease of development, a `Makefile` is provided, use it like this:
@@ -43,14 +51,9 @@ Python in Poetry:
 
 	$ poetry run python
 	>>> import advent_of_code_2021
-	>>> print(advent_of_code_2021.version)
-	"0.1.0"
+	>>> print(advent_of_code_2021.__version__)
+	0.1.0
 
-This codebase uses [pre-commit](https://pre-commit.com) to run linting
-tools like `flake8`. Use `pre-commit install` to install git
-pre-commit hooks to force running these checks before any code can be
-committed, use `make lint` to run these manually. Testing is provided
-by `pytest` separately in `make test`.
 
 
 ### Testing

@@ -1,12 +1,14 @@
 """Check day1 of aoc"""
 
+from typing import List, Tuple
+
 import pytest
 
 from advent_of_code_2021.aoc_runner import solve
 from advent_of_code_2021.solutions_lookup import SOLUTION_LOOKUP_DAYS
 
 SOLVED_DAYS_AND_PARTS = [(d, list(p.keys())) for d, p in SOLUTION_LOOKUP_DAYS.items()]
-SOLUTION_COMBOS = []
+SOLUTION_COMBOS: List[Tuple[int, int]] = []
 for day, parts in SOLVED_DAYS_AND_PARTS:
     SOLUTION_COMBOS.extend((day, p) for p in parts)
 
