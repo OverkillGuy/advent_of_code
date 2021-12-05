@@ -123,10 +123,10 @@ def parse_input(input_str: str) -> Tuple[NumbersDrawn, Grids]:
     """
     strings_list = input_str.split("\n")
     first_string, rest_string = strings_list[0], strings_list[1:]
-    print(f"{first_string=}")
+    # print(f"{first_string=}")
     drawn_list = [int(i) for i in first_string.split(",")]
     grids = parse_grids("\n".join(rest_string))
-    print(f"{rest_string=}")
+    # print(f"{rest_string=}")
     return drawn_list, grids
 
 
@@ -202,16 +202,15 @@ def calculate_score(grid: NpGrid, pick: int) -> int:
     nonbingo_ints_1d = nonbingo_ints_2d.reshape(-1)
     # Keep nonzero elements
     nonbingo_ints_nozeroes = nonbingo_ints_1d[nonbingo_ints_1d != 0]
-    return sum(nonbingo_ints_nozeroes) * pick
+    return int(sum(nonbingo_ints_nozeroes) * pick)
 
 
-def solution1(input_strlist: List[str]) -> int:
+def solution1(input_str: str) -> int:
     r"""Solve day4 part 1
 
-    >>> solution1(simple_input.split('\n'))
+    >>> solution1(simple_input)
     4512
     """
-    input_str = "\n".join(input_strlist)
     numbers, grids = parse_input(input_str)
     np_grids: List[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
     # print(input_str)
@@ -220,8 +219,8 @@ def solution1(input_strlist: List[str]) -> int:
         for grid in np_grids:
             is_bingo = check_bingo(grid)
             if is_bingo:
-                print("Bingo!")
-                print(f"Grid: {grid}")
+                # print("Bingo!")
+                # print(f"Grid: {grid}")
                 return calculate_score(grid, pick)
-    print(f"{np_grids=}")
+    # print(f"{np_grids=}")
     return 0

@@ -3,6 +3,8 @@
 from enum import Enum
 from typing import Dict, List, NamedTuple
 
+from advent_of_code_2021.input_conversion import to_string_list
+
 
 class Direction(str, Enum):
     """Sonar directions"""
@@ -95,3 +97,13 @@ def solution2(input_list: List[str]) -> int:
     for movement in input_list:
         pose = apply_movement_aim(pose, movement)
     return pose.position * pose.depth
+
+
+def solve1_stringlist(input_str: str) -> int:
+    """Convert list to proper format and solve day2 solution1"""
+    return solution1(to_string_list(input_str))
+
+
+def solve2_stringlist(input_str: str) -> int:
+    """Convert list to proper format and solve day2 solution2"""
+    return solution2(to_string_list(input_str))

@@ -2,6 +2,8 @@
 
 from typing import List, Optional
 
+from advent_of_code_2021.input_conversion import to_string_list
+
 
 def digit_list_to_int(digits: List[int]) -> int:
     """Transform a list of binary digits into the base 10 integer it represents
@@ -161,3 +163,13 @@ def solution2(input_list: List[str]) -> int:
     oxygen_rating = bit_criteria(numbers_list, True)
     co2_rating = bit_criteria(numbers_list, False)
     return oxygen_rating * co2_rating
+
+
+def solve1_stringlist(input_str: str) -> int:
+    """Convert list to proper format and solve day3 solution1"""
+    return solution1(to_string_list(input_str))
+
+
+def solve2_stringlist(input_str: str) -> int:
+    """Convert list to proper format and solve day3 solution2"""
+    return solution2(to_string_list(input_str))

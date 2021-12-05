@@ -4,7 +4,6 @@ from typing import List, Tuple
 
 import pytest
 
-from advent_of_code_2021.aoc_runner import solve
 from advent_of_code_2021.solutions_lookup import SOLUTION_LOOKUP_DAYS
 
 SOLVED_DAYS_AND_PARTS = [(d, list(p.keys())) for d, p in SOLUTION_LOOKUP_DAYS.items()]
@@ -22,7 +21,8 @@ def test_solutions_with_input(day, part, shared_datadir):
     solution_func = SOLUTION_LOOKUP_DAYS[day][part]
     d = f"{day:02d}"
     with open(shared_datadir / f"input{d}.txt") as fd:
-        computed_answer = solve(fd, solution_func)
+        problem_input = fd.read()
+    computed_answer = solution_func(problem_input)
     # Then the answer is an integer
     assert type(computed_answer) == int, "An integer should be generated"
     # And the answer is equal to the known solution
@@ -30,4 +30,4 @@ def test_solutions_with_input(day, part, shared_datadir):
         expected_answer = int(fd.read().strip())
     assert (
         computed_answer == expected_answer
-    ), "Did not compute the answer that was expected"
+    ), "Did not compute the answer that was proven to work"
