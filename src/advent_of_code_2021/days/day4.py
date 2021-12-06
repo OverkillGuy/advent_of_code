@@ -17,7 +17,6 @@ Grids = List[Grid]
 IntGrid = npt.NDArray[np.uint8]
 # A 2D grid of booleans
 BoolGrid = npt.NDArray[np.bool_]
-# Aggregate of bool+int grid, for playing a round
 
 
 class NpGrid(NamedTuple):

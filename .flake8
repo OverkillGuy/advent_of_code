@@ -17,3 +17,5 @@ ignore =
     S607
     # Subprocess call - check for execution of untrusted input.
     S603
+    # "whitespace before ':'" fails on numpy array subindex due to black: a[x: 3]
+    E203
