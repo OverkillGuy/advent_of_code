@@ -2,7 +2,7 @@
 
 from typing import List
 
-from advent_of_code_2021.input_conversion import to_integer_list
+from advent_of_code_2021.input_conversion import newlines_to_integer_list
 
 
 def solution1(input_list: List[int]) -> int:
@@ -32,9 +32,9 @@ def solution2(input_list: List[int]) -> int:
 
 def solve1_string(input_str: str) -> int:
     """Convert list to proper format and solve day1 solution1"""
-    return solution1(to_integer_list(input_str))
+    return solution1(newlines_to_integer_list(input_str))
 
 
 def solve2_string(input_str: str) -> int:
     """Convert list to proper format and solve day1 solution2"""
-    return solution2(to_integer_list(input_str))
+    return solution2(newlines_to_integer_list(input_str))

@@ -7,10 +7,10 @@ sample_string = """1
 3"""
 
 
-def to_integer_list(input_str: str) -> List[int]:
+def newlines_to_integer_list(input_str: str) -> List[int]:
     """Convert a newline-delimited string to a list of integers
 
-    >>> to_integer_list(sample_string)
+    >>> newlines_to_integer_list(sample_string)
     [1, 2, 3]
     """
     return [int(i) for i in input_str.strip().split("\n")]
