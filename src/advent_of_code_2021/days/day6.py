@@ -1,7 +1,8 @@
 """Day6 fish reproduction"""
 
+from collections import defaultdict
 from copy import copy
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 FishTimer = int
 FishList = List[FishTimer]
@@ -91,3 +92,32 @@ def solution1(input_str: str) -> int:
     """Solve day6 problem 1"""
     input_list: FishList = [int(i) for i in input_str.strip().split(",")]
     return len(breed_rounds(input_list, 80))
+
+
+def breed_bins(start_fishes: FishList, rounds: int) -> int:
+    """Breed fishes by aggregating them as bins
+
+    >>> breed_bins(sample_fishes, 80)
+    5934
+    >>> breed_bins(sample_fishes, 256)
+    26984457539
+    """
+    fish_bin_counter: Dict[FishTimer, int] = defaultdict(int)
+    for index in start_fishes:
+        fish_bin_counter[index] += 1
+    for _round in range(rounds):
+        reset_fishes = fish_bin_counter[0]
+        for i in range(9):
+            if i == 6:  # 0 resets themselves to 6
+                fish_bin_counter[i] = fish_bin_counter[i + 1] + reset_fishes
+            elif i == 8:  # resets add fresh fishes
+                fish_bin_counter[i] = reset_fishes
+            else:  # otherwise, just shift 1 down
+                fish_bin_counter[i] = fish_bin_counter[i + 1]
+    return sum(fish_bin_counter.values())
+
+
+def solution2(input_str: str) -> int:
+    """Solve day6 problem 2"""
+    input_list: FishList = [int(i) for i in input_str.strip().split(",")]
+    return breed_bins(input_list, 256)
