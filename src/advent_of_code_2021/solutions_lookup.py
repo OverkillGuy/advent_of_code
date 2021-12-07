@@ -2,7 +2,7 @@
 
 from typing import Callable, Dict
 
-from advent_of_code_2021.days import day0, day1, day2, day3, day4, day5
+from advent_of_code_2021.days import day0, day1, day2, day3, day4, day5, day6
 
 SOLUTION_LOOKUP_DAYS: Dict[int, Dict[int, Callable]] = {
     # Dummy day0 with real function to run OK tests
@@ -12,6 +12,7 @@ SOLUTION_LOOKUP_DAYS: Dict[int, Dict[int, Callable]] = {
     3: {1: day3.solve1_stringlist, 2: day3.solve2_stringlist},
     4: {1: day4.solution1, 2: day4.solution2},
     5: {1: day5.solve1_string, 2: day5.solve2_string},
+    6: {1: day6.solution1},
     # Fake day29 with just solution 1, no solution2, for testing
     29: {1: lambda x: 1337},
 }
