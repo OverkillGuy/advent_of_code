@@ -4,6 +4,8 @@ from collections import defaultdict
 from copy import copy
 from typing import Dict, List, Tuple
 
+from advent_of_code_2021.input_conversion import csv_to_integer_list
+
 FishTimer = int
 FishList = List[FishTimer]
 
@@ -119,5 +121,4 @@ def breed_bins(start_fishes: FishList, rounds: int) -> int:
 
 def solution2(input_str: str) -> int:
     """Solve day6 problem 2"""
-    input_list: FishList = [int(i) for i in input_str.strip().split(",")]
-    return breed_bins(input_list, 256)
+    return breed_bins(csv_to_integer_list(input_str), 256)

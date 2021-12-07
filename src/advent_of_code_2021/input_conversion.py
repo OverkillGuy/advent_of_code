@@ -23,3 +23,12 @@ def to_string_list(input_str: str) -> List[str]:
     ['1', '2', '3']
     """
     return input_str.rstrip().split("\n")
+
+
+def csv_to_integer_list(input_str: str) -> List[int]:
+    """Convert a comma-delimited string to a list of integers
+
+    >>> csv_to_integer_list("1,2,3")
+    [1, 2, 3]
+    """
+    return [int(i) for i in input_str.strip().split(",")]
