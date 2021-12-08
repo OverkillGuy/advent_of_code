@@ -1,6 +1,6 @@
 
 .PHONY: all
-all: install lint test build
+all: install lint docs test build
 
 .PHONY: install
 install:
@@ -14,6 +14,15 @@ lint:  # Use all linters on all files (not just staged for commit)
 .PHONY: test
 test:
 	poetry run pytest
+
+.PHONY: docs
+docs:
+	cd docs && make html
+
+.PHONY: docs-serve
+docs-serve:
+	cd docs/build/html && python3 -m http.server
+
 
 .PHONY: build
 build:
