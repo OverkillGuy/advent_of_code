@@ -4,7 +4,7 @@ from collections import defaultdict
 from copy import copy
 from typing import Dict, List, Tuple
 
-from advent_of_code_2021.input_conversion import csv_to_integer_list
+from advent_of_code.input_conversion import csv_to_integer_list
 
 FishTimer = int
 FishList = List[FishTimer]

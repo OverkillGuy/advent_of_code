@@ -2,9 +2,9 @@
 
 from typing import Callable, Dict
 
-from advent_of_code_2021.days import day0, day1, day2, day3, day4, day5, day6, day7
+from advent_of_code.aoc2021 import day0, day1, day2, day3, day4, day5, day6, day7
 
-SOLUTION_LOOKUP_DAYS: Dict[int, Dict[int, Callable]] = {
+SOLUTION_LOOKUP_2021DAYS: Dict[int, Dict[int, Callable]] = {
     # Dummy day0 with real function to run OK tests
     0: {1: day0.solution1, 2: day0.solution2},
     1: {1: day1.solve1_string, 2: day1.solve2_string},

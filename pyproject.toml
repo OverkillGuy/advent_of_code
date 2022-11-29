@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "advent_of_code_2021"
+name = "advent_of_code"
 version = "0.1.0"
 description = "Solving Advent of Code 2021 with Python"
 authors = ["Jb Doyon <jb@jiby.tech>"]
@@ -9,7 +9,7 @@ python = ">=3.8,<3.11"
 numpy = "^1.21.4"
 
 [tool.poetry.scripts]
-aoc = 'advent_of_code_2021.aoc_runner:cli'
+aoc = 'advent_of_code.aoc_runner:cli'
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
@@ -58,7 +58,7 @@ disable = ["logging-fstring-interpolation"]
 addopts = """-vv \
 	--color=yes \
         --doctest-modules \
-        --cov=advent_of_code_2021 \
+        --cov=advent_of_code \
         --cov-report=xml:test_results/coverage.xml \
         --cov-report=html:test_results/coverage.html \
         --cov-report=term \

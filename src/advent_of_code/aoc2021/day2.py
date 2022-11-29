@@ -3,7 +3,7 @@
 from enum import Enum
 from typing import Dict, List, NamedTuple
 
-from advent_of_code_2021.input_conversion import to_string_list
+from advent_of_code.input_conversion import to_string_list
 
 
 class Direction(str, Enum):

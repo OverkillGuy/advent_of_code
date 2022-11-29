@@ -3,7 +3,7 @@
 from collections import Counter
 from typing import List
 
-from advent_of_code_2021.input_conversion import csv_to_integer_list
+from advent_of_code.input_conversion import csv_to_integer_list
 
 sample_crabs = [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
 

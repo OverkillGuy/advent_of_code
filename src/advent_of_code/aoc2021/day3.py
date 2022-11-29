@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from advent_of_code_2021.input_conversion import to_string_list
+from advent_of_code.input_conversion import to_string_list
 
 
 def digit_list_to_int(digits: List[int]) -> int:

@@ -2,7 +2,7 @@
 
 from typing import List
 
-from advent_of_code_2021.input_conversion import newlines_to_integer_list
+from advent_of_code.input_conversion import newlines_to_integer_list
 
 
 def solution1(input_list: List[int]) -> int:
