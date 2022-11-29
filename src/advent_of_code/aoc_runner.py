@@ -4,7 +4,7 @@ import argparse
 import sys
 from typing import List
 
-from advent_of_code.solutions_lookup import SOLUTION_LOOKUP_2021DAYS
+from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP
 
 
 def parse_arguments(arguments: List[str]) -> argparse.Namespace:
@@ -30,14 +30,22 @@ def parse_arguments(arguments: List[str]) -> argparse.Namespace:
 def cli():
     """Run the aoc cli"""
     args = parse_arguments(sys.argv[1:])
-    if args.day not in SOLUTION_LOOKUP_2021DAYS:
-        print(f"Day {args.day} isn't solved right now", file=sys.stderr)
+    if args.year not in SOLUTIONS_LOOKUP:
+        print(f"Year {args.year} hasn't got any solutions", file=sys.stderr)
         sys.exit(1)
-    day_selected = SOLUTION_LOOKUP_2021DAYS[args.day]
+    YEAR_SOLUTIONS_LOOKUP = SOLUTIONS_LOOKUP[args.year]
+    if args.day not in YEAR_SOLUTIONS_LOOKUP:
+        print(
+            f"Day {args.day} isn't solved right now for year {args.year}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    day_selected = YEAR_SOLUTIONS_LOOKUP[args.day]
     solution_selected = 2 if args.solution2 else 1
     if solution_selected not in day_selected:
         print(
-            f"Day {args.day} problem {solution_selected} isn't solved right now",
+            f"Day {args.day} problem {solution_selected} isn't solved right now "
+            f"for year {args.year}",
             file=sys.stderr,
         )
         sys.exit(1)
