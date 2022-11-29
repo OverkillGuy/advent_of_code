@@ -9,10 +9,15 @@ ignore =
     # This is useless in tests/ where we WANT to have asserts
     S101
     # "Docstrings first line must end in a period"
+    # Overly strict rule don't serve anyone. PEP8 be damned on this
     D400
     # # Subprocess-related alerts:
     # Consider possible security implications associated with the subprocess module.
+    # "Line too long"
     S404
+    # We have "black" formatter to deal with those (splits line), and flake8
+    # still complains about long comments(!!!) automatically
+    E501
     # Starting a process with a partial executable path
     S607
     # Subprocess call - check for execution of untrusted input.

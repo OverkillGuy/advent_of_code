@@ -80,7 +80,7 @@ def align_crabs2(crabs: List[int]) -> int:
     max_position = max(crab_position_bins.keys())
     # Upper boundary of sum_till_n cost: x ^ 2 > (x * (x+1)) / 2 > (x ** 2 ) / 2
     # Heuristic for max cost: for each crab, take upper boundary of dist
-    best_cost: int = (max_position ** 2) * len(crabs)
+    best_cost: int = (max_position**2) * len(crabs)
     # best_position: int = -1
     for position in range(max_position + 1):
         cost = cost_alignment2(crabs, position)
