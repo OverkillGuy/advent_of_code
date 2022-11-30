@@ -1,20 +1,23 @@
 """Check aoc solutions for all days"""
 
-from typing import List, Tuple
-
 import pytest
 
-from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP
+from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP, Day, Part, Year
 
-SOLVED_DAYS_AND_PARTS = [
-    (2021, d, list(p.keys())) for d, p in SOLUTIONS_LOOKUP[2021].items()
-]
-SOLUTION_COMBOS: List[Tuple[int, int, int]] = []
-for year, day, parts in SOLVED_DAYS_AND_PARTS:
-    SOLUTION_COMBOS.extend((year, day, p) for p in parts)
+SolutionCombination = tuple[Year, Day, Part]
+"""A single solution, combination of Year+Day+Part"""
+
+SOLUTIONS_LIST: list[SolutionCombination] = []
+"""The entirety of all info about solutions, just the year/day/part numbers"""
 
 
-@pytest.mark.parametrize("year,day,part", SOLUTION_COMBOS)
+for year, days_lookup in SOLUTIONS_LOOKUP.items():
+    for day, parts in days_lookup.items():
+        solutions = [(year, day, p) for p in parts]
+        SOLUTIONS_LIST.extend(solutions)
+
+
+@pytest.mark.parametrize("year,day,part", SOLUTIONS_LIST)
 def test_solutions_with_input(year, day, part, shared_datadir):
     """Scenario Outline: Proving each solved day works on real input"""
     # Given an input file for day <day number> of <year number>
@@ -28,7 +31,7 @@ def test_solutions_with_input(year, day, part, shared_datadir):
     # Then the answer is an integer
     assert type(computed_answer) == int, "An integer should be generated"
     # And the answer is equal to the known solution
-    with open(shared_datadir / "y2021" / f"output{d}_{part}.txt") as fd:
+    with open(shared_datadir / f"y{year}" / f"output{d}_{part}.txt") as fd:
         expected_answer = int(fd.read().strip())
     assert (
         computed_answer == expected_answer
