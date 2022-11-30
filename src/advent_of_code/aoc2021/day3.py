@@ -1,11 +1,11 @@
 """Day 3, binary things"""
 
-from typing import List, Optional
+from typing import Optional
 
 from advent_of_code.input_conversion import to_string_list
 
 
-def digit_list_to_int(digits: List[int]) -> int:
+def digit_list_to_int(digits: list[int]) -> int:
     """Transform a list of binary digits into the base 10 integer it represents
 
     >>> digit_list_to_int([1, 0, 1, 1, 0])
@@ -17,7 +17,7 @@ def digit_list_to_int(digits: List[int]) -> int:
     return int(digits_as_string, 2)
 
 
-def count_one_digits(input_list: List[str]) -> List[int]:
+def count_one_digits(input_list: list[str]) -> list[int]:
     """Count the number of digits set to one per number
 
     >>> count_one_digits(['011', '101', '111'])
@@ -32,7 +32,7 @@ def count_one_digits(input_list: List[str]) -> List[int]:
     return digit_one_counts
 
 
-def most_common_digits(input_list: List[str]) -> List[int]:
+def most_common_digits(input_list: list[str]) -> list[int]:
     """Find most common value of digit in a list, biased to 1 on equality
 
     >>> most_common_digits(["00100", "11110", "10110", "10111", "10101", "01111"])
@@ -48,7 +48,7 @@ def most_common_digits(input_list: List[str]) -> List[int]:
     ]
 
 
-def most_common_digits_balanced(input_list: List[str]) -> List[Optional[int]]:
+def most_common_digits_balanced(input_list: list[str]) -> list[Optional[int]]:
     """Find most common value of digit in a list, None if equality
 
     >>> most_common_digits_balanced(["0010", "1110", "1010", "1011", "1011", "0111"])
@@ -58,7 +58,7 @@ def most_common_digits_balanced(input_list: List[str]) -> List[Optional[int]]:
     """
     digit_one_counts = count_one_digits(input_list)
     half_of_input = len(input_list) / 2
-    results: List[Optional[int]] = []
+    results: list[Optional[int]] = []
     for digit_one_count in digit_one_counts:
         if digit_one_count == half_of_input:
             results.append(None)
@@ -69,7 +69,7 @@ def most_common_digits_balanced(input_list: List[str]) -> List[Optional[int]]:
     return results
 
 
-def binary_not_digit_list(input_list: List[int]) -> List[int]:
+def binary_not_digit_list(input_list: list[int]) -> list[int]:
     """Inverse a binary number's values
 
     >>> binary_not_digit_list([0, 1 , 1])
@@ -79,8 +79,8 @@ def binary_not_digit_list(input_list: List[int]) -> List[int]:
 
 
 def binary_not_digit_list_noneable(
-    input_list: List[Optional[int]],
-) -> List[Optional[int]]:
+    input_list: list[Optional[int]],
+) -> list[Optional[int]]:
     """Inverse a binary number's values, passing None through as-is
 
     >>> binary_not_digit_list_noneable([0, 1, None])
@@ -89,7 +89,7 @@ def binary_not_digit_list_noneable(
     return [None if bit is None else 1 if bit == 0 else 0 for bit in input_list]
 
 
-def solution1(input_list: List[str]) -> int:
+def solution1(input_list: list[str]) -> int:
     r"""Solve day3 problem 1
 
     >>> solution1(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
@@ -107,7 +107,7 @@ def solution1(input_list: List[str]) -> int:
     return gamma * epsilon
 
 
-def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> int:
+def bit_criteria(input_list: list[str], use_most_common_digit: bool = True) -> int:
     """Compute the bit criteria per part 2
 
     >>> bit_criteria(["00100", "11110", "10110", "10111", "10101", "01111", "00111",
@@ -124,7 +124,7 @@ def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> i
     current_bit_position = 0
     while current_bit_position < number_bits:
         most_common_digit = most_common_digits_balanced(searched_list)
-        reference_list: List[Optional[int]] = (
+        reference_list: list[Optional[int]] = (
             most_common_digit
             if use_most_common_digit
             else binary_not_digit_list_noneable(most_common_digit)
@@ -149,7 +149,7 @@ def bit_criteria(input_list: List[str], use_most_common_digit: bool = True) -> i
     raise ValueError("No number matched the bit criteria for oxygen generator")
 
 
-def solution2(input_list: List[str]) -> int:
+def solution2(input_list: list[str]) -> int:
     r"""Solve day3 part 2
 
     >>> solution2(["00100", "11110", "10110", "10111", "10101", "01111", "00111",

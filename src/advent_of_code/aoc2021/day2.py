@@ -1,7 +1,7 @@
 """Day 2 solution using Complex numbers for 2D vectors"""
 
 from enum import Enum
-from typing import Dict, List, NamedTuple
+from typing import Dict, NamedTuple
 
 from advent_of_code.input_conversion import to_string_list
 
@@ -21,7 +21,7 @@ DIRECTIONS_VECTOR: Dict[str, complex] = {
 }
 
 
-def follow_directions(input_list: List[str]) -> complex:
+def follow_directions(input_list: list[str]) -> complex:
     """Follow given directions, returning end position
 
     >>> d = ["forward 5", "down 5", "forward 8","up 3", "down 8", "forward 2"]
@@ -35,7 +35,7 @@ def follow_directions(input_list: List[str]) -> complex:
     return position
 
 
-def solution1(input_list: List[str]) -> int:
+def solution1(input_list: list[str]) -> int:
     """Solve day2 solution1
 
     >>> solution1(["forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2"])
@@ -86,7 +86,7 @@ def apply_movement_aim(before: Pose, movement: str) -> Pose:
         raise KeyError(f"Bad direction: '{direction}'")
 
 
-def solution2(input_list: List[str]) -> int:
+def solution2(input_list: list[str]) -> int:
     """Solve day2 solution2
 
     >>> d = ["forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2"]

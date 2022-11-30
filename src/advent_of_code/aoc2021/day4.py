@@ -1,16 +1,16 @@
 """Day4, a bingo game"""
 
 import re
-from typing import List, NamedTuple, Tuple
+from typing import NamedTuple
 
 import numpy as np
 from numpy import typing as npt
 
 W, H = 5, 5
 
-NumbersDrawn = List[int]
-Grid = List[int]
-Grids = List[Grid]
+NumbersDrawn = list[int]
+Grid = list[int]
+Grids = list[Grid]
 
 
 # A 2D grid of integers
@@ -104,14 +104,14 @@ def parse_grids(input_str: str) -> Grids:
     True
     """
     grid_matches = grid_regex.findall(input_str)
-    grids: List[List[int]] = []
+    grids: list[list[int]] = []
     for grid_found in grid_matches:
         grid = [int(i) for i in grid_found]
         grids.append(grid)
     return grids
 
 
-def parse_input(input_str: str) -> Tuple[NumbersDrawn, Grids]:
+def parse_input(input_str: str) -> tuple[NumbersDrawn, Grids]:
     """Parse puzzle input into understandable objects
 
     >>> drawn, grids = parse_input(simple_input)
@@ -143,9 +143,9 @@ def grid_list_to_np_grid(grid: Grid) -> NpGrid:
     return NpGrid(np_grid, np.zeros_like(np_grid, dtype=bool))
 
 
-def draw(pick: int, grids: List[NpGrid]) -> List[NpGrid]:
+def draw(pick: int, grids: list[NpGrid]) -> list[NpGrid]:
     """Draw the given pick on the given grids, updating hit-mask"""
-    grids_out: List[NpGrid] = []
+    grids_out: list[NpGrid] = []
     for int_grid, bool_grid in grids:
         matches_x, matches_y = np.where(int_grid == pick)
         if len(matches_x):
@@ -209,7 +209,7 @@ def solution1(input_str: str) -> int:
     4512
     """
     numbers, grids = parse_input(input_str)
-    np_grids: List[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
+    np_grids: list[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
     for pick in numbers:
         np_grids = draw(pick, np_grids)
         for grid in np_grids:
@@ -226,11 +226,11 @@ def solution2(input_str: str) -> int:
     1924
     """
     numbers, grids = parse_input(input_str)
-    np_grids: List[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
+    np_grids: list[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
     for pick in numbers:
 
         np_grids = draw(pick, np_grids)
-        nobingo_grids: List[NpGrid] = []
+        nobingo_grids: list[NpGrid] = []
         for grid in np_grids:
             is_bingo = check_bingo(grid)
             if not is_bingo:

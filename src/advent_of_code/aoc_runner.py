@@ -2,12 +2,11 @@
 
 import argparse
 import sys
-from typing import List
 
 from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP
 
 
-def parse_arguments(arguments: List[str]) -> argparse.Namespace:
+def parse_arguments(arguments: list[str]) -> argparse.Namespace:
     """Parse generic arguments, given as parameters"""
     parser = argparse.ArgumentParser("aoc", description="Advent of Code runner 2021")
     parser.add_argument("-y", "--year", type=int, help="What year to use for problem")

@@ -2,18 +2,17 @@
 
 from collections import defaultdict
 from copy import copy
-from typing import Dict, List, Tuple
 
 from advent_of_code.input_conversion import csv_to_integer_list
 
 FishTimer = int
-FishList = List[FishTimer]
+FishList = list[FishTimer]
 
 
 sample_fishes: FishList = [3, 4, 3, 1, 2]
 
 
-def breed(fish_timer: FishTimer) -> Tuple[FishTimer, bool]:
+def breed(fish_timer: FishTimer) -> tuple[FishTimer, bool]:
     """Breed a single fish for one round, signaling new fish
 
     >>> breed(3)
@@ -104,7 +103,7 @@ def breed_bins(start_fishes: FishList, rounds: int) -> int:
     >>> breed_bins(sample_fishes, 256)
     26984457539
     """
-    fish_bin_counter: Dict[FishTimer, int] = defaultdict(int)
+    fish_bin_counter: dict[FishTimer, int] = defaultdict(int)
     for index in start_fishes:
         fish_bin_counter[index] += 1
     for _round in range(rounds):
