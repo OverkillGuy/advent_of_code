@@ -23,15 +23,19 @@ def test_solutions_with_input(year, day, part, shared_datadir):
     # Given an input file for day <day number> of <year number>
     # And the known solution for day <day number> part <part number> of <year number>
     # When I run the solution with input file of day <day number>
-    solution_func = SOLUTIONS_LOOKUP[year][day][part]
     d = f"{day:02d}"
-    with open(shared_datadir / f"y{year}" / f"input{d}.txt") as fd:
+    solution_func = SOLUTIONS_LOOKUP[year][day][part]
+    input_file = shared_datadir / f"y{year}" / f"input{d}.txt"
+    output_file = shared_datadir / f"y{year}" / f"output{d}_{part}.txt"
+    if not output_file.exists():
+        pytest.skip("No reference output to check against")
+    with open(input_file) as fd:
         problem_input = fd.read()
     computed_answer = solution_func(problem_input)
     # Then the answer is an integer
     assert type(computed_answer) == int, "An integer should be generated"
     # And the answer is equal to the known solution
-    with open(shared_datadir / f"y{year}" / f"output{d}_{part}.txt") as fd:
+    with open(output_file) as fd:
         expected_answer = int(fd.read().strip())
     assert (
         computed_answer == expected_answer
