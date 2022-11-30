@@ -1,9 +1,7 @@
 """Dummy day's solution to confirm the runner works"""
 
-from typing import List
 
-
-def solution1(input_list: List[str]) -> int:
+def solution1(input_list: list[str]) -> int:
     """Solve first problem of dummy day 0
 
     >>> solution1(["10", "20", "30"])
@@ -12,7 +10,7 @@ def solution1(input_list: List[str]) -> int:
     return 10
 
 
-def solution2(input_list: List[str]) -> int:
+def solution2(input_list: list[str]) -> int:
     """Solve second problem of dummy day0
 
     >>> solution2(["10", "20", "30"])

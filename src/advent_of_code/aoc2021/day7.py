@@ -1,14 +1,13 @@
 """Day7 crab alignment"""
 
 from collections import Counter
-from typing import List
 
-from advent_of_code_2021.input_conversion import csv_to_integer_list
+from advent_of_code.input_conversion import csv_to_integer_list
 
 sample_crabs = [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
 
 
-def cost_alignment(crabs: List[int], target_position: int) -> int:
+def cost_alignment(crabs: list[int], target_position: int) -> int:
     """Calculate the alignment cost of a position
 
     >>> cost_alignment(sample_crabs, 1)
@@ -21,7 +20,7 @@ def cost_alignment(crabs: List[int], target_position: int) -> int:
     return sum([abs(position - target_position) for position in crabs])
 
 
-def align_crabs(crabs: List[int]) -> int:
+def align_crabs(crabs: list[int]) -> int:
     """Find best alignment for crabs
 
     >>> align_crabs(sample_crabs)
@@ -46,7 +45,7 @@ def solution1(input_str: str) -> int:
     return align_crabs(csv_to_integer_list(input_str))
 
 
-def cost_alignment2(crabs: List[int], target_position: int) -> int:
+def cost_alignment2(crabs: list[int], target_position: int) -> int:
     """Calculate the alignment cost of a position for part 2
 
     >>> cost_alignment2(sample_crabs, 5)
@@ -70,7 +69,7 @@ def sum_till_n(n: int) -> int:
     return (n * (n + 1)) // 2
 
 
-def align_crabs2(crabs: List[int]) -> int:
+def align_crabs2(crabs: list[int]) -> int:
     """Find best alignment for crabs using second part calculation
 
     >>> align_crabs2(sample_crabs)
@@ -80,7 +79,7 @@ def align_crabs2(crabs: List[int]) -> int:
     max_position = max(crab_position_bins.keys())
     # Upper boundary of sum_till_n cost: x ^ 2 > (x * (x+1)) / 2 > (x ** 2 ) / 2
     # Heuristic for max cost: for each crab, take upper boundary of dist
-    best_cost: int = (max_position ** 2) * len(crabs)
+    best_cost: int = (max_position**2) * len(crabs)
     # best_position: int = -1
     for position in range(max_position + 1):
         cost = cost_alignment2(crabs, position)

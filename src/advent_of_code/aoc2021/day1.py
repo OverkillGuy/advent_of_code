@@ -1,11 +1,10 @@
 """Day 1 solution to AoC 2021"""
 
-from typing import List
 
-from advent_of_code_2021.input_conversion import newlines_to_integer_list
+from advent_of_code.input_conversion import newlines_to_integer_list
 
 
-def solution1(input_list: List[int]) -> int:
+def solution1(input_list: list[int]) -> int:
     """Solve day1 solution1 via zips
 
     >>> solution1([10, 20, 30, 40])
@@ -16,7 +15,7 @@ def solution1(input_list: List[int]) -> int:
     return sum([1 if delta > 0 else 0 for delta in deltas])
 
 
-def solution2(input_list: List[int]) -> int:
+def solution2(input_list: list[int]) -> int:
     """Solve day1 solution2 via zips
 
     >>> solution2([607, 618, 618, 617, 647, 716, 769, 792])

@@ -1,13 +1,11 @@
 """Convert the input's string list to useful format"""
 
-from typing import List
-
 sample_string = """1
 2
 3"""
 
 
-def newlines_to_integer_list(input_str: str) -> List[int]:
+def newlines_to_integer_list(input_str: str) -> list[int]:
     """Convert a newline-delimited string to a list of integers
 
     >>> newlines_to_integer_list(sample_string)
@@ -16,7 +14,7 @@ def newlines_to_integer_list(input_str: str) -> List[int]:
     return [int(i) for i in input_str.strip().split("\n")]
 
 
-def to_string_list(input_str: str) -> List[str]:
+def to_string_list(input_str: str) -> list[str]:
     """Convert a newline-delimited string to a list of strings
 
     >>> to_string_list(sample_string)
@@ -25,7 +23,7 @@ def to_string_list(input_str: str) -> List[str]:
     return input_str.rstrip().split("\n")
 
 
-def csv_to_integer_list(input_str: str) -> List[int]:
+def csv_to_integer_list(input_str: str) -> list[int]:
     """Convert a comma-delimited string to a list of integers
 
     >>> csv_to_integer_list("1,2,3")

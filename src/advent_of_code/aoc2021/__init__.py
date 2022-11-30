@@ -1,10 +1,11 @@
-"""Lookup table for Advent of Code solution functions"""
+"""Per day solutions file of Advent Of Code 2021."""
 
-from typing import Callable, Dict
+from typing import Callable
 
-from advent_of_code_2021.days import day0, day1, day2, day3, day4, day5, day6, day7
+from advent_of_code import Day, Part
+from advent_of_code.aoc2021 import day0, day1, day2, day3, day4, day5, day6, day7
 
-SOLUTION_LOOKUP_DAYS: Dict[int, Dict[int, Callable]] = {
+SOLUTIONS_2021: dict[Day, dict[Part, Callable]] = {
     # Dummy day0 with real function to run OK tests
     0: {1: day0.solution1, 2: day0.solution2},
     1: {1: day1.solve1_string, 2: day1.solve2_string},

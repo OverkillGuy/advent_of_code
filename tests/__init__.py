@@ -1,1 +1,1 @@
-"""Tests for advent_of_code_2021."""
+"""Tests for advent_of_code."""
