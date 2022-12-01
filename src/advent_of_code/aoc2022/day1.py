@@ -14,9 +14,9 @@ def solution1(puzzle_input: FoodSupply) -> int:
     """Solve day1 solution1
 
     >>> solution1([[1000], [2000, 3000]])
-    3
+    5000
     """
-    return 3
+    return max(sum(calories for calories in elf_food) for elf_food in puzzle_input)
 
 
 def read_food_supply(puzzle_input: str) -> FoodSupply:
