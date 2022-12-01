@@ -27,11 +27,13 @@ def test_solutions_with_input(year, day, part, shared_datadir):
     solution_func = SOLUTIONS_LOOKUP[year][day][part]
     input_file = shared_datadir / f"y{year}" / f"input{d}.txt"
     output_file = shared_datadir / f"y{year}" / f"output{d}_{part}.txt"
-    if not output_file.exists():
-        pytest.skip("No reference output to check against")
+    if not input_file.exists():
+        pytest.skip("No puzzle input to compute")
     with open(input_file) as fd:
         problem_input = fd.read()
     computed_answer = solution_func(problem_input)
+    if not output_file.exists():
+        pytest.skip(f"No reference output, but {computed_answer=}")
     # Then the answer is an integer
     assert type(computed_answer) == int, "An integer should be generated"
     # And the answer is equal to the known solution
