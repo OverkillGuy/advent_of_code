@@ -6,7 +6,5 @@ from advent_of_code import Day, Part
 from advent_of_code.aoc2022 import day1
 
 SOLUTIONS_2022: dict[Day, dict[Part, Callable]] = {
-    1: {
-        1: day1.solve1_string,  # 2: day1.solve2_string
-    },
+    1: {1: day1.solve1_string, 2: day1.solve2_string},
 }
