@@ -45,6 +45,16 @@ class Shape(Enum):
         return lookup[move]
 
 
+WINS_AGAINST: dict[Shape, Shape] = {
+    Shape.SCISSORS: Shape.ROCK,
+    Shape.ROCK: Shape.PAPER,
+    Shape.PAPER: Shape.SCISSORS,
+}
+
+# Reversing the map of winning moves
+LOSE_AGAINST = {v: k for k, v in WINS_AGAINST.items()}
+
+
 def play(opponent: Shape, mine: Shape) -> Optional[bool]:
     """Play a round of Rock Paper Scissors
 
@@ -61,12 +71,7 @@ def play(opponent: Shape, mine: Shape) -> Optional[bool]:
     if opponent == mine:
         return None
     # dict Value wins against dict key
-    wins_against = {
-        Shape.SCISSORS: Shape.ROCK,
-        Shape.ROCK: Shape.PAPER,
-        Shape.PAPER: Shape.SCISSORS,
-    }
-    return wins_against[opponent] == mine
+    return WINS_AGAINST[opponent] == mine
 
 
 def score_round(opponent: Shape, mine: Shape) -> Score:
@@ -100,8 +105,22 @@ def solution1(puzzle_input: StrategyGuide) -> int:
 
 
 def solution2(puzzle_input) -> int:
-    """Solve day2 part 2"""
-    return 0
+    """Solve day2 part 2
+
+    >>> solution2(SAMPLE_GUIDE)
+    12
+    """
+    acc = 0
+    for opponent, result in puzzle_input:
+        opp_shape = Shape.from_opponent(opponent)
+        my_shape_lookup = {
+            "X": LOSE_AGAINST[opp_shape],
+            "Y": opp_shape,
+            "Z": WINS_AGAINST[opp_shape],
+        }
+        my_shape = my_shape_lookup[result]
+        acc += score_round(opp_shape, my_shape)
+    return acc
 
 
 def read_puzzle_input(puzzle_input: str) -> StrategyGuide:
