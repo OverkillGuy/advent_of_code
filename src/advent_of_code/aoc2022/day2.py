@@ -1,11 +1,12 @@
 """Day 2 solution to AoC 2022"""
 
 from enum import Enum
-from typing import Literal, Optional
+from typing import Literal, Optional, Union
 
 OpponentMove = Literal["A", "B", "C"]
 MyMove = Literal["X", "Y", "Z"]
 
+Moves = Union[OpponentMove, MyMove]
 
 Strategy = tuple[OpponentMove, MyMove]
 
@@ -14,11 +15,9 @@ StrategyGuide = list[Strategy]
 Score = int
 
 
-SAMPLE_INPUT = """
-A Y
+SAMPLE_INPUT = """A Y
 B X
-C Z
-"""
+C Z"""
 
 SAMPLE_GUIDE: StrategyGuide = [("A", "Y"), ("B", "X"), ("C", "Z")]
 
@@ -87,9 +86,17 @@ def score_round(opponent: Shape, mine: Shape) -> Score:
     return shape_score + outcome_score
 
 
-def solution1(puzzle_input) -> int:
-    """Solve day2 part 1"""
-    return 0
+def solution1(puzzle_input: StrategyGuide) -> int:
+    """Solve day2 part 1
+
+    >>> solution1(SAMPLE_GUIDE)
+    15
+    """
+    acc = 0
+    for opponent, mine in puzzle_input:
+        opp_shape, my_shape = Shape.from_opponent(opponent), Shape.from_mine(mine)
+        acc += score_round(opp_shape, my_shape)
+    return acc
 
 
 def solution2(puzzle_input) -> int:
@@ -98,13 +105,19 @@ def solution2(puzzle_input) -> int:
 
 
 def read_puzzle_input(puzzle_input: str) -> StrategyGuide:
-    """Process the puzzle input string"""
-    return []
+    """Process the puzzle input string
+
+    >>> read_puzzle_input(SAMPLE_INPUT) == SAMPLE_GUIDE
+    True
+    """
+    # Type ignored due to Mypy issue: puzzle_input str needs coerced into OpponentMove,
+    # but can't find a way to express it! We _know_ the strings have these constraints!
+    return [tuple(line.split()) for line in puzzle_input.splitlines()]  # type:ignore
 
 
 def solve1_string(puzzle_input: str) -> int:
     """Convert list to proper format and solve day2 solution1"""
-    return solution2(read_puzzle_input(puzzle_input))
+    return solution1(read_puzzle_input(puzzle_input))
 
 
 def solve2_string(puzzle_input: str) -> int:
