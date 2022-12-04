@@ -1,6 +1,7 @@
 """Day 4 solution to AoC 2022"""
 
 import re
+from typing import Optional
 
 SectorID = int
 
@@ -30,9 +31,57 @@ SAMPLE_INPUT: list[Pair] = [
 ]
 
 
-def solution1(puzzle_input) -> int:
-    """Solve day4 part 1"""
-    return 0
+def is_min(first: int, second: int) -> Optional[bool]:
+    """Is the first item minimum? None for equality"""
+    first_is_min: Optional[bool] = None
+    if first < second:
+        first_is_min = True
+    if first > second:
+        first_is_min = False
+    return first_is_min
+
+
+def is_max(first: int, second: int) -> Optional[bool]:
+    """Is the first item maximum? None for equality"""
+    first_is_min: Optional[bool] = None
+    if first > second:
+        first_is_min = True
+    if first < second:
+        first_is_min = False
+    return first_is_min
+
+
+def is_disjoint(first: Assignment, second: Assignment) -> bool:
+    """Is it obviously disjoint based on range start/end"""
+    (first_start, first_end), (second_start, second_end) = first, second
+    return first_start > second_end or second_start > first_end
+
+
+def subsets(pair: Pair) -> bool:
+    """Is an assignment the subset of the other in the pair?
+
+    >>> [subsets(pair) for pair in SAMPLE_INPUT]
+    [False, False, False, True, True, False]
+    """
+    first, second = pair
+    if is_disjoint(first, second):
+        return False
+    (first_start, first_end), (second_start, second_end) = first, second
+    if first_start == second_start or first_end == second_end:
+        return True  # Since not disjoint, any shared anchor = one is subset
+    # Sets are subset if either range's anchors is both min and max
+    # No more shared anchors or disjoint set => strict int-comparison sensical
+    return is_min(first_start, second_start) == is_max(first_end, second_end)
+
+
+def solution1(puzzle_input: list[Pair]) -> int:
+    """
+    Solve day4 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    2
+    """
+    return sum(subsets(pair) for pair in puzzle_input)
 
 
 def solution2(puzzle_input) -> int:
