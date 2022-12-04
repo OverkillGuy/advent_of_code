@@ -11,6 +11,9 @@ Compartments = tuple[Compartment, Compartment]
 Rucksack = str
 """A single rucksack's content regardless of compartments"""
 
+ElfGroup = tuple[Rucksack, Rucksack, Rucksack]
+"""Backpacks of an elf group"""
+
 SAMPLE_INPUT_STR = """vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
@@ -35,14 +38,14 @@ def split_rucksack_compartments(rucksack: Rucksack) -> Compartments:
     return rucksack[:half], rucksack[half:]
 
 
-def only_common_item(rucksack: Rucksack) -> str:
+def common_item_compartment(rucksack: Rucksack) -> str:
     """Return the only item in sack common between compartments
 
-    >>> only_common_item("vJrwpWtwJgWrhcsFMMfFFhFp")
+    >>> common_item_compartment("vJrwpWtwJgWrhcsFMMfFFhFp")
     'p'
-    >>> only_common_item("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL")
+    >>> common_item_compartment("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL")
     'L'
-    >>> only_common_item("PmmdzqPrVvPwwTWBwg")
+    >>> common_item_compartment("PmmdzqPrVvPwwTWBwg")
     'P'
     """
     compartments = split_rucksack_compartments(rucksack)
@@ -85,18 +88,44 @@ def solution1(puzzle_input: list[Rucksack]) -> int:
     """
     acc = 0
     for rucksack in puzzle_input:
-        intersection_char = only_common_item(rucksack)
+        intersection_char = common_item_compartment(rucksack)
         acc += char_priority(intersection_char)
     return acc
 
 
-def solution2(puzzle_input) -> int:
-    """Solve day3 part 2"""
-    return 0
+def group_badge(elf_group: ElfGroup) -> str:
+    """Return the badge of an elf group, only item common between all three Rucksacks
+
+    >>> group_badge(SAMPLE_INPUT[:3])
+    'r'
+    >>> group_badge(SAMPLE_INPUT[3:])
+    'Z'
+    """
+    first, second, third = elf_group
+    set_intersection = set(list(first)) & set(list(second)) & set(list(third))
+    # Problem definition guarantees only one char intersection
+    return set_intersection.pop()
+
+
+def solution2(puzzle_input: list[Rucksack]) -> int:
+    """
+    Solve day3 part 2
+
+    >>> solution2(SAMPLE_INPUT)
+    70
+    """
+    # Group 3 by 3 by iterating over same list offset by 1 & 2
+    acc = 0
+    elves = puzzle_input
+    for elf_group in zip(elves[::3], elves[1::3], elves[2::3]):
+        badge = group_badge(elf_group)
+        acc += char_priority(badge)
+    return acc
 
 
 def read_puzzle_input(puzzle_input: str) -> list[Rucksack]:
-    r"""Process the puzzle input string
+    r"""
+    Process the puzzle input string
 
     >>> read_puzzle_input("vJrwpWtwJgWrhcsFMMfFFhFp\n")
     ['vJrwpWtwJgWrhcsFMMfFFhFp']
