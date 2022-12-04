@@ -30,6 +30,13 @@ SAMPLE_INPUT: list[Pair] = [
 ]
 
 
+def is_disjoint(pair: Pair) -> bool:
+    """Are the two sets disjoint"""
+    first, second = pair
+    (first_start, first_end), (second_start, second_end) = first, second
+    return first_start > second_end or second_start > first_end
+
+
 def subsets(pair: Pair) -> bool:
     """Is an assignment the subset of the other in the pair?
 
@@ -55,7 +62,7 @@ def subsets(pair: Pair) -> bool:
     first, second = pair
     (first_start, first_end), (second_start, second_end) = first, second
     # Disjoint sets (no shared item)
-    if first_start > second_end or second_start > first_end:
+    if is_disjoint(pair):
         return False  # Disjoint cannot be subset
     # Since sets not disjoint, any shared anchor = one is subset
     if first_start == second_start or first_end == second_end:
@@ -79,9 +86,14 @@ def solution1(puzzle_input: list[Pair]) -> int:
     return sum(subsets(pair) for pair in puzzle_input)
 
 
-def solution2(puzzle_input) -> int:
-    """Solve day4 part 2"""
-    return 0
+def solution2(puzzle_input: list[Pair]) -> int:
+    """
+    Solve day4 part 2
+
+    >>> solution2(SAMPLE_INPUT)
+    4
+    """
+    return sum(not is_disjoint(pair) for pair in puzzle_input)
 
 
 def read_puzzle_input(puzzle_input: str) -> list[Pair]:
