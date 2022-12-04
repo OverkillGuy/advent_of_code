@@ -5,8 +5,11 @@ from functools import cache
 
 Compartment = str
 """The content of a single rucksack compartment, as a string"""
-Rucksack = tuple[Compartment, Compartment]
-"""A single rucksack's content, compartment by compartment"""
+Compartments = tuple[Compartment, Compartment]
+"""The two compartments of a rucksack"""
+
+Rucksack = str
+"""A single rucksack's content regardless of compartments"""
 
 SAMPLE_INPUT_STR = """vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -17,26 +20,33 @@ CrZsJsPPZsGzwwsLwLmpwMDw
 """
 
 SAMPLE_INPUT: list[Rucksack] = [
-    ("vJrwpWtwJgWr", "hcsFMMfFFhFp"),
-    ("jqHRNqRjqzjGDLGL", "rsFMfFZSrLrFZsSL"),
-    ("PmmdzqPrV", "vPwwTWBwg"),
-    ("wMqvLMZHhHMvwLH", "jbvcjnnSBnvTQFn"),
-    ("ttgJtRGJ", "QctTZtZT"),
-    ("CrZsJsPPZsGz", "wwsLwLmpwMDw"),
+    ("vJrwpWtwJgWrhcsFMMfFFhFp"),
+    ("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+    ("PmmdzqPrVvPwwTWBwg"),
+    ("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn"),
+    ("ttgJtRGJQctTZtZT"),
+    ("CrZsJsPPZsGzwwsLwLmpwMDw"),
 ]
 
 
-def only_common_item(sack: Rucksack) -> str:
+def split_rucksack_compartments(rucksack: Rucksack) -> Compartments:
+    """Split a single rucksack into its two compartment halves"""
+    half = len(rucksack) // 2
+    return rucksack[:half], rucksack[half:]
+
+
+def only_common_item(rucksack: Rucksack) -> str:
     """Return the only item in sack common between compartments
 
-    >>> only_common_item(("vJrwpWtwJgWr", "hcsFMMfFFhFp"))
+    >>> only_common_item("vJrwpWtwJgWrhcsFMMfFFhFp")
     'p'
-    >>> only_common_item(("jqHRNqRjqzjGDLGL", "rsFMfFZSrLrFZsSL"))
+    >>> only_common_item("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL")
     'L'
-    >>> only_common_item(("PmmdzqPrV", "vPwwTWBwg"))
+    >>> only_common_item("PmmdzqPrVvPwwTWBwg")
     'P'
     """
-    first, second = sack
+    compartments = split_rucksack_compartments(rucksack)
+    first, second = compartments
     set_intersection = set(list(first)) & set(list(second))
     # Problem definition guarantees only one char intersection
     return set_intersection.pop()
@@ -89,15 +99,11 @@ def read_puzzle_input(puzzle_input: str) -> list[Rucksack]:
     r"""Process the puzzle input string
 
     >>> read_puzzle_input("vJrwpWtwJgWrhcsFMMfFFhFp\n")
-    [('vJrwpWtwJgWr', 'hcsFMMfFFhFp')]
+    ['vJrwpWtwJgWrhcsFMMfFFhFp']
     >>> read_puzzle_input(SAMPLE_INPUT_STR) == SAMPLE_INPUT
     True
     """
-    acc = []
-    for line in puzzle_input.splitlines():
-        half = len(line) // 2
-        acc.append((line[:half], line[half:]))
-    return acc
+    return puzzle_input.splitlines()
 
 
 def solve1_string(puzzle_input: str) -> int:
