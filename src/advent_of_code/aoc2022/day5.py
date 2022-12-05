@@ -1,6 +1,7 @@
 """Day 5 solution to AoC 2022"""
 
 import re
+from typing import NamedTuple
 
 Crate = str
 """A single crate (single character string)"""
@@ -11,8 +12,14 @@ Stack = list[Crate]
 Stacks = list[Stack]
 """The entirety of the stacks used as problem input, last is rightmost"""
 
-Movement = tuple[int, int, int]
-"""A planned movement of [1] crates from stack [2] to stack [3]"""
+
+class Movement(NamedTuple):
+    """A planned movement of [1] crates from stack [2] to stack [3]"""
+
+    quantity: int
+    src: int
+    dest: int
+
 
 Problem = tuple[Stacks, list[Movement]]
 """The problem as given"""
@@ -31,16 +38,34 @@ move 1 from 1 to 2
 
 SAMPLE_INPUT: Problem = (
     [["Z", "N"], ["M", "C", "D"], ["P"]],
-    [(1, 2, 1), (3, 1, 3), (2, 2, 1), (1, 1, 2)],
+    [Movement(1, 2, 1), Movement(3, 1, 3), Movement(2, 2, 1), Movement(1, 1, 2)],
 )
 
 MOVE_REGEX = re.compile(r"^move (\d+) from (\d+) to (\d+)$")
 """Regex matching a single line of intended movement in the puzzle input"""
 
 
-def solution1(puzzle_input) -> int:
-    """Solve day5 part 1"""
-    return 0
+def apply_move(stacks: Stacks, move: Movement) -> Stacks:
+    """Apply a single movement to the stack"""
+    moved: list[Crate] = []
+    for _ in range(move.quantity):  # As many times as needed
+        moved.append(stacks[move.src - 1].pop())  # Push the popped value
+    stacks[move.dest - 1].extend(moved)
+    return stacks
+
+
+def solution1(puzzle_input: Problem) -> str:
+    """
+    Solve day5 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    'CMZ'
+    """
+    stacks, moves = puzzle_input
+    for move in moves:
+        stacks = apply_move(stacks, move)
+
+    return "".join([s.pop() for s in stacks])
 
 
 def solution2(puzzle_input) -> int:
@@ -53,7 +78,7 @@ def parse_move(move_line: str) -> Movement:
     matches = re.match(MOVE_REGEX, move_line)
     if not matches:
         raise ValueError(f"Bad line given for move parsing: {move_line}")
-    return (int(matches.group(1)), int(matches.group(2)), int(matches.group(3)))
+    return Movement(int(matches.group(1)), int(matches.group(2)), int(matches.group(3)))
 
 
 def read_puzzle_input(puzzle_input: str) -> Problem:
@@ -89,7 +114,7 @@ def read_puzzle_input(puzzle_input: str) -> Problem:
     return (stacks_sorted_by_idx, moves)
 
 
-def solve1_string(puzzle_input: str) -> int:
+def solve1_string(puzzle_input: str) -> str:
     """Convert list to proper format and solve day5 solution1"""
     return solution1(read_puzzle_input(puzzle_input))
 
