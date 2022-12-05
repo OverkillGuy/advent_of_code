@@ -1,6 +1,7 @@
 """Day 5 solution to AoC 2022"""
 
 import re
+from copy import deepcopy
 from typing import NamedTuple
 
 Crate = str
@@ -54,6 +55,23 @@ def apply_move(stacks: Stacks, move: Movement) -> Stacks:
     return stacks
 
 
+def apply_move_retainorder(stacks: Stacks, move: Movement) -> Stacks:
+    """
+    Apply a single movement to the stack, retaining order per part 2
+
+    >>> apply_move_retainorder([["Z","N","D"],["M", "C"],["P"]], SAMPLE_INPUT[1][1])
+    [[], ['M', 'C'], ['P', 'Z', 'N', 'D']]
+
+    >>> apply_move_retainorder([[], ['M', 'C'], ['P', 'Z', 'N', 'D']], SAMPLE_INPUT[1][2])
+    [['M', 'C'], [], ['P', 'Z', 'N', 'D']]
+    """
+    moved: list[Crate] = []
+    for _ in range(move.quantity):  # As many times as needed
+        moved.append(stacks[move.src - 1].pop())  # Push the popped value
+    stacks[move.dest - 1].extend(moved[::-1])
+    return stacks
+
+
 def solution1(puzzle_input: Problem) -> str:
     """
     Solve day5 part 1
@@ -61,16 +79,23 @@ def solution1(puzzle_input: Problem) -> str:
     >>> solution1(SAMPLE_INPUT)
     'CMZ'
     """
-    stacks, moves = puzzle_input
+    stacks, moves = deepcopy(puzzle_input)
     for move in moves:
         stacks = apply_move(stacks, move)
-
     return "".join([s.pop() for s in stacks])
 
 
-def solution2(puzzle_input) -> int:
-    """Solve day5 part 2"""
-    return 0
+def solution2(puzzle_input: Problem) -> str:
+    """
+    Solve day5 part 2
+
+    >>> solution2(SAMPLE_INPUT)
+    'MCD'
+    """
+    stacks, moves = deepcopy(puzzle_input)
+    for move in moves:
+        stacks = apply_move_retainorder(stacks, move)
+    return "".join([s.pop() for s in stacks])
 
 
 def parse_move(move_line: str) -> Movement:
@@ -119,6 +144,6 @@ def solve1_string(puzzle_input: str) -> str:
     return solution1(read_puzzle_input(puzzle_input))
 
 
-def solve2_string(puzzle_input: str) -> int:
+def solve2_string(puzzle_input: str) -> str:
     """Convert list to proper format and solve day5 solution2"""
     return solution2(read_puzzle_input(puzzle_input))
