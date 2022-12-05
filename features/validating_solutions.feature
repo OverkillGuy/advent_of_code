@@ -11,5 +11,4 @@ Scenario Outline: Proving each solved day works on real input
   Given an input file for day <day number> of <year number>
   And the known solution for day <day number> part <part number>
   When I run the solution with input file of day <day number> of <year number>
-  Then the answer is an integer
-  And the answer is equal to the known solution
+  Then the answer is equal to the known solution

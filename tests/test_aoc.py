@@ -34,11 +34,9 @@ def test_solutions_with_input(year, day, part, shared_datadir):
     computed_answer = solution_func(problem_input)
     if not output_file.exists():
         pytest.skip(f"No reference output, but {computed_answer=}")
-    # Then the answer is an integer
-    assert type(computed_answer) == int, "An integer should be generated"
-    # And the answer is equal to the known solution
+    # Then the answer is equal to the known solution
     with open(output_file) as fd:
-        expected_answer = int(fd.read().strip())
+        expected_answer = fd.read().strip()
     assert (
-        computed_answer == expected_answer
+        str(computed_answer) == expected_answer
     ), "Did not compute the answer that was proven to work"
