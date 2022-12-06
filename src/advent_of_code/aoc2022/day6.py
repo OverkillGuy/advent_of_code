@@ -4,22 +4,22 @@ Stream = str
 """The stream of data"""
 
 
-def solution1(puzzle_input, window_size=4) -> int:
-    """Solve day6 part 1
+def detect(stream, window_size: int) -> int:
+    """Detect a signal in window_size of a stream
 
-    >>> solution1("mjqjpqmgbljsphdztnvjfqwrcgsmlb")
+    >>> detect("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 4)
     7
-    >>> solution1("bvwbjplbgvbhsrlpgdmjqwftvncz")
+    >>> detect("bvwbjplbgvbhsrlpgdmjqwftvncz", 4)
     5
-    >>> solution1("nppdvjthqldpwncqszvftbrmjlhg")
+    >>> detect("nppdvjthqldpwncqszvftbrmjlhg", 4)
     6
-    >>> solution1("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg")
+    >>> detect("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 4)
     10
-    >>> solution1("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw")
+    >>> detect("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4)
     11
     """
-    for idx in range(window_size, len(puzzle_input) - window_size):
-        window = puzzle_input[idx - window_size : idx]
+    for idx in range(window_size, len(stream) - window_size):
+        window = stream[idx - window_size : idx]
         unique_chars_window = set(window)
         # print(f"{idx=},{window=}, {unique_chars_window=}")
         if len(unique_chars_window) == window_size:
@@ -27,16 +27,11 @@ def solution1(puzzle_input, window_size=4) -> int:
     raise ValueError("Didn't detect the sequence at all")
 
 
-def solution2(puzzle_input) -> int:
+def solution1(puzzle_input: str) -> int:
+    """Solve day6 part 1"""
+    return detect(puzzle_input, 4)
+
+
+def solution2(puzzle_input: str) -> int:
     """Solve day6 part 2"""
-    return 0
-
-
-def solve1_string(puzzle_input: Stream) -> int:
-    """Convert list to proper format and solve day6 solution1"""
-    return solution1(puzzle_input)
-
-
-def solve2_string(puzzle_input: Stream) -> int:
-    """Convert list to proper format and solve day6 solution2"""
-    return solution2(puzzle_input)
+    return detect(puzzle_input, 14)
