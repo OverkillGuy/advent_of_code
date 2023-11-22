@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v1.4.0
+_src_path: gh:OverkillGuy/python-template
+author_email: jb@jiby.tech
+author_name: Jb Doyon
+description: Solving Advent of Code with Python, over multiple years
+package_name: advent_of_code
+project_name: Advent Of Code
+project_slug: advent-of-code
+python_version: '3.11'
