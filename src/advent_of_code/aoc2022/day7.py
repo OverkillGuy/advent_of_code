@@ -114,8 +114,7 @@ def solution2(puzzle_input) -> int:
 
 
 def parse_input_line(line: str) -> InputLine:
-    """
-    Parse a single line of puzzle input
+    """Parse a single line of puzzle input
 
     >>> SAMPLE_INPUT_LINES = SAMPLE_INPUT_STR.splitlines()
     >>> parse_input_line(SAMPLE_INPUT_LINES[0])

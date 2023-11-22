@@ -77,8 +77,7 @@ def subsets(pair: Pair) -> bool:
 
 
 def solution1(puzzle_input: list[Pair]) -> int:
-    """
-    Solve day4 part 1
+    """Solve day4 part 1
 
     >>> solution1(SAMPLE_INPUT)
     2
@@ -87,8 +86,7 @@ def solution1(puzzle_input: list[Pair]) -> int:
 
 
 def solution2(puzzle_input: list[Pair]) -> int:
-    """
-    Solve day4 part 2
+    """Solve day4 part 2
 
     >>> solution2(SAMPLE_INPUT)
     4
@@ -97,8 +95,7 @@ def solution2(puzzle_input: list[Pair]) -> int:
 
 
 def read_puzzle_input(puzzle_input: str) -> list[Pair]:
-    """
-    Process the puzzle input string
+    """Process the puzzle input string
 
     >>> read_puzzle_input(SAMPLE_INPUT_STR) == SAMPLE_INPUT
     True

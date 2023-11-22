@@ -10,6 +10,10 @@ advent-of-code = "advent_of_code.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+numpy = "*"
+jsonpatch = "^1.32"
+scipy = "*"
+
 
 
 # Note: Linters not defined in this file but .pre-commit-config.yaml, which

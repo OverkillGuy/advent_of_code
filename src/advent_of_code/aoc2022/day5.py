@@ -56,8 +56,7 @@ def apply_move(stacks: Stacks, move: Movement) -> Stacks:
 
 
 def apply_move_retainorder(stacks: Stacks, move: Movement) -> Stacks:
-    """
-    Apply a single movement to the stack, retaining order per part 2
+    """Apply a single movement to the stack, retaining order per part 2
 
     >>> apply_move_retainorder([["Z","N","D"],["M", "C"],["P"]], SAMPLE_INPUT[1][1])
     [[], ['M', 'C'], ['P', 'Z', 'N', 'D']]
@@ -73,8 +72,7 @@ def apply_move_retainorder(stacks: Stacks, move: Movement) -> Stacks:
 
 
 def solution1(puzzle_input: Problem) -> str:
-    """
-    Solve day5 part 1
+    """Solve day5 part 1
 
     >>> solution1(SAMPLE_INPUT)
     'CMZ'
@@ -86,8 +84,7 @@ def solution1(puzzle_input: Problem) -> str:
 
 
 def solution2(puzzle_input: Problem) -> str:
-    """
-    Solve day5 part 2
+    """Solve day5 part 2
 
     >>> solution2(SAMPLE_INPUT)
     'MCD'

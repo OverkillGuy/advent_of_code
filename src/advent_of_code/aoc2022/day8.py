@@ -47,8 +47,7 @@ def column(grid: Grid, column_index: int) -> Row:
 
 
 def is_visible(tree: TreeElevation, sightline: Row) -> bool:
-    """
-    Compute if a given tree's evelation is visible, given LOS (distance ASC start=1)
+    """Compute if a given tree's evelation is visible, given LOS (distance ASC start=1)
 
     >>> is_visible(5, [2]), is_visible(5, [0])
     (True, True)

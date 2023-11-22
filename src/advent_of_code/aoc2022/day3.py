@@ -108,8 +108,7 @@ def group_badge(elf_group: ElfGroup) -> str:
 
 
 def solution2(puzzle_input: list[Rucksack]) -> int:
-    """
-    Solve day3 part 2
+    """Solve day3 part 2
 
     >>> solution2(SAMPLE_INPUT)
     70
@@ -124,8 +123,7 @@ def solution2(puzzle_input: list[Rucksack]) -> int:
 
 
 def read_puzzle_input(puzzle_input: str) -> list[Rucksack]:
-    r"""
-    Process the puzzle input string
+    r"""Process the puzzle input string
 
     >>> read_puzzle_input("vJrwpWtwJgWrhcsFMMfFFhFp\n")
     ['vJrwpWtwJgWrhcsFMMfFFhFp']

@@ -2,14 +2,9 @@
 
 import re
 
-
-
-from scipy.sparse import csr_array
-
-from scipy.sparse.csgraph import dijkstra
-
 import numpy as np
-
+from scipy.sparse import csr_array
+from scipy.sparse.csgraph import dijkstra
 
 PATH_REGEX = re.compile(r"""(\w+) to (\w+) = (\d+)""")
 """A path from X to Y and the distance"""
@@ -43,10 +38,12 @@ SAMPLE_INPUT: list[Adjacency] = [
 def solution1(puzzle_input: list[Adjacency]) -> int:
     """Solve day9 part 1"""
     adjacency_matrix_size = len(puzzle_input)
-    graph = csr_array([adjacency_matrix_size]*2, dtype=np.uint8)
+    graph = csr_array([adjacency_matrix_size] * 2, dtype=np.uint8)
     for src, dest, distance in puzzle_input:
         graph[src, dest] = distance
-    dist_matrix, predecessors = dijkstra(csgraph=graph, directed=True, indices=0, return_predecessors=False)
+    dist_matrix, predecessors = dijkstra(
+        csgraph=graph, directed=True, indices=0, return_predecessors=False
+    )
     return 0
 
 
@@ -54,9 +51,9 @@ def solution2(puzzle_input) -> int:
     """Solve day9 part 2"""
     return 0
 
+
 def read_puzzle_input(puzzle_input: str) -> list[Adjacency]:
-    """
-    Process the puzzle input string
+    """Process the puzzle input string
 
     >>> read_puzzle_input(SAMPLE_INPUT_STR) == SAMPLE_INPUT
     True
@@ -69,6 +66,7 @@ def read_puzzle_input(puzzle_input: str) -> list[Adjacency]:
         src, dest, distance = match.group(1), match.group(2), int(match.group(3))
         acc.append((src, dest, distance))
     return acc
+
 
 def solve1_string(puzzle_input: str) -> int:
     """Convert list to proper format and solve day9 solution1"""

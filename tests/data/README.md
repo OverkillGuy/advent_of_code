@@ -10,11 +10,11 @@ To that end, I've collected my personal inputs from advent of code in order to
 run the actual solutions I collect through actual known-good input, and its
 known-good answers.
 
-### Where's the test?
+## Where's the test?
 
 See `/tests/test_aoc.py` for the logic that tests using this folder
 
-### What's up with days 0 and 29?
+## What's up with days 0 and 29?
 
 Obviously, there is no day 0 or day 29 in [advent of
 code](https://adventofcode.com), but I found helpful when writing the CLI runner

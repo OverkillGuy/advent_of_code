@@ -228,7 +228,6 @@ def solution2(input_str: str) -> int:
     numbers, grids = parse_input(input_str)
     np_grids: list[NpGrid] = [grid_list_to_np_grid(g) for g in grids]
     for pick in numbers:
-
         np_grids = draw(pick, np_grids)
         nobingo_grids: list[NpGrid] = []
         for grid in np_grids:

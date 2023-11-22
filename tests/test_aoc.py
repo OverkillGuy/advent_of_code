@@ -1,7 +1,6 @@
 """Check aoc solutions for all days"""
 
 import pytest
-
 from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP, Day, Part, Year
 
 SolutionCombination = tuple[Year, Day, Part]
