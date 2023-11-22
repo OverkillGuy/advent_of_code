@@ -1,1 +1,1 @@
-"""Tests for advent-of-code."""
+"""Tests for advent_of_code."""
