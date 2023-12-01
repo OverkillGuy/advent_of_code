@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 """Day4, a bingo game"""
 
 import re

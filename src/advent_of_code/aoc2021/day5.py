@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 """Day5 vents problem, solved via numpy grids"""
 
 import re

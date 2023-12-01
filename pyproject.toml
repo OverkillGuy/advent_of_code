@@ -75,7 +75,12 @@ unfixable = [
 ]
 # Black compat:
 line-length = 88
-extend-exclude = ["docs/*"]
+extend-exclude = [
+  "docs/*",
+  "src/advent_of_code/aoc2020/*.py",
+  "src/advent_of_code/aoc2021/*.py",
+  "src/advent_of_code/aoc2022/*.py",
+]
 
 
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
