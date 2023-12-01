@@ -1,4 +1,4 @@
-# Advent Of Code
+# Advent of Code
 
 Solving Advent of Code with Python, over multiple years
 
@@ -6,7 +6,15 @@ Requires Python 3.11
 
 ## Usage
 
-Depends on what the code in there does.
+Run the per-day scripts with your own custom input:
+
+ poetry run aoc --help
+ poetry run aoc --day 1 --input-file my_input1.txt
+ poetry run aoc --day 2 --solution2 --input-file my_input1.txt
+ poetry run aoc -d 3 -2 -i my_input1.txt
+
+See the `features/` folder for an overview of the CLI and testing strategy in
+plain english ([Gherkin](https://cucumber.io/docs/gherkin/reference/)).
 
 ### Run the command
 
@@ -20,10 +28,9 @@ poetry install
 
 Then inside the virtual environment, launch the command:
 
-```shell
+``` shell
 # Run single command inside virtualenv
 poetry run advent-of-code
-
 # or
 # Load the virtualenv first
 poetry shell

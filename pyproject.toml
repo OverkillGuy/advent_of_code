@@ -16,8 +16,6 @@ scipy = "*"
 
 
 
-# Note: Linters not defined in this file but .pre-commit-config.yaml, which
-# installs/manages each tool in its own isolated virtualenv
 
 [tool.poetry.group.test.dependencies]
 pytest = "7.*"
@@ -29,7 +27,6 @@ pytest-clarity = "1.*"
 pytest-datadir = "*"
 # Expose unittest.Mocker in pytest
 pytest-mock = "*"
-
 
 [tool.poetry.group.docs.dependencies]
 # Main documentation-as-code (HTML/PDF generator)
