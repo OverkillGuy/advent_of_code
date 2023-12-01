@@ -6,7 +6,7 @@ authors = ["Jb Doyon <jb@jiby.tech>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-advent-of-code = "advent_of_code.cli:cli"
+aoc = 'advent_of_code.aoc_runner:cli'
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -25,6 +25,10 @@ pytest = "7.*"
 pytest-cov = "4.*"
 # Clearer assertion failures (colorful diff)
 pytest-clarity = "1.*"
+# Shared data directories for tests
+pytest-datadir = "*"
+# Expose unittest.Mocker in pytest
+pytest-mock = "*"
 
 
 [tool.poetry.group.docs.dependencies]
@@ -38,9 +42,6 @@ myst-parser = "*"
 sphinx-autodoc2 = "*"
 # Generate Dash/Zeal "docsets" (offline dev-docs package) from HTML docs
 doc2dash = "*"
-# Astroid v3.0.0 breaks autodoc dependencies ==> pinning to <3.0.0
-# See https://github.com/sphinx-extensions2/sphinx-autodoc2/issues/31
-astroid = "<3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
