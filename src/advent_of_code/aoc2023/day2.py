@@ -98,6 +98,29 @@ def is_possible(to_check: Game, ref: Grab) -> bool:
     return True
 
 
+def min_cubes(game: Game) -> Grab:
+    """Return the minimum number of cubes to make a given Game possible
+
+    >>> min_cubes(SAMPLE_INPUT[0])
+    {'blue': 6, 'red': 4, 'green': 2}
+    >>> min_cubes(SAMPLE_INPUT[1])
+    {'blue': 4, 'red': 1, 'green': 3}
+    >>> min_cubes(SAMPLE_INPUT[2])
+    {'blue': 6, 'red': 20, 'green': 13}
+    >>> min_cubes(SAMPLE_INPUT[3])
+    {'blue': 15, 'red': 14, 'green': 3}
+    >>> min_cubes(SAMPLE_INPUT[4])
+    {'blue': 2, 'red': 6, 'green': 3}
+    """
+    acc: Grab = {"blue": 0, "red": 0, "green": 0}
+    _game_id, grabs = game
+    for grab in grabs:
+        for color, test_num in grab.items():
+            if acc[color] < test_num:
+                acc[color] = test_num
+    return acc
+
+
 def solution2(puzzle_input) -> int:
     """Solve day2 part 2"""
     return 0
