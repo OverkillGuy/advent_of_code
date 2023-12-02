@@ -61,10 +61,32 @@ COLORS_REGEX = "|".join(Color.__args__)  # type: ignore[attr-defined]
 GRAB_SPLIT_REGEX = re.compile(f"(\d+) ({COLORS_REGEX})")
 """How to split a single grab into color pairs"""
 
+REFERENCE_BAG: Grab = {"red": 12, "green": 13, "blue": 14}
+"""The reference bag we're supposed to check against"""
+
 
 def solution1(puzzle_input) -> int:
     """Solve day2 part 1"""
     return 0
+
+
+def is_possible(to_check: Game, ref: Grab) -> bool:
+    """Checks that the Game to_check matches ref bag contents
+
+    Checks using the info given: "games 1, 2, and 5 would have been possible"...
+
+    >>> is_possible(SAMPLE_INPUT[0], REFERENCE_BAG)
+    True
+    >>> is_possible(SAMPLE_INPUT[1], REFERENCE_BAG)
+    True
+    >>> is_possible(SAMPLE_INPUT[2], REFERENCE_BAG)
+    False
+    >>> is_possible(SAMPLE_INPUT[3], REFERENCE_BAG)
+    False
+    >>> is_possible(SAMPLE_INPUT[4], REFERENCE_BAG)
+    True
+    """
+    return True
 
 
 def solution2(puzzle_input) -> int:
