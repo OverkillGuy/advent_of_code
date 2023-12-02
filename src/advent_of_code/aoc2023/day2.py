@@ -53,7 +53,7 @@ SAMPLE_INPUT: Games = [
 ]
 
 
-GAMES_SPLIT_REGEX = re.compile("^Game (\d+): (.+)$")
+GAMES_SPLIT_REGEX = re.compile(r"^Game (\d+): (.+)$")
 """Splits game into id + grabs"""
 
 COLORS_REGEX = "|".join(Color.__args__)  # type: ignore[attr-defined]
@@ -86,6 +86,11 @@ def is_possible(to_check: Game, ref: Grab) -> bool:
     >>> is_possible(SAMPLE_INPUT[4], REFERENCE_BAG)
     True
     """
+    _game_id, grabs = to_check
+    for grab in grabs:
+        for color, test_num in grab.items():
+            if ref[color] < test_num:
+                return False
     return True
 
 
