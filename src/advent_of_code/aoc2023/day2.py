@@ -65,9 +65,13 @@ REFERENCE_BAG: Grab = {"red": 12, "green": 13, "blue": 14}
 """The reference bag we're supposed to check against"""
 
 
-def solution1(puzzle_input) -> int:
-    """Solve day2 part 1"""
-    return 0
+def solution1(puzzle_input: Games) -> int:
+    """Solve day2 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    8
+    """
+    return sum(game[0] for game in puzzle_input if is_possible(game, REFERENCE_BAG))
 
 
 def is_possible(to_check: Game, ref: Grab) -> bool:
