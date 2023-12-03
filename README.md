@@ -8,10 +8,11 @@ Requires Python 3.11
 
 Run the per-day scripts with your own custom input:
 
- poetry run aoc --help
- poetry run aoc --day 1 --input-file my_input1.txt
- poetry run aoc --day 2 --solution2 --input-file my_input1.txt
- poetry run aoc -d 3 -2 -i my_input1.txt
+``` shell
+aoc --day 1 --input-file my_input1.txt
+aoc --day 2 --solution2 --input-file my_input1.txt
+aoc -y 2021 -d 3 -2 -i my_input1.txt
+```
 
 See the `features/` folder for an overview of the CLI and testing strategy in
 plain english ([Gherkin](https://cucumber.io/docs/gherkin/reference/)).

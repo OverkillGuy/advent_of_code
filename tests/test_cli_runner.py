@@ -31,7 +31,7 @@ def test_cli_day0_ok(dummy_input):
     """Scenario: CLI solve runs OK on mock-day 0"""
     # Given a dummy input file
     # When I invoke "poetry run aoc --day 0 --input-file dummy.txt"
-    cmd = CMD_ROOT + ["--day", "0", "--input-file", str(dummy_input)]
+    cmd = CMD_ROOT + ["--day", "0", "--year", "2021", "--input-file", str(dummy_input)]
     day0 = subprocess.run(cmd, capture_output=True, text=True)
     # Then the exit code is OK
     print(f"Errors: '{day0.stderr}'")
@@ -47,6 +47,8 @@ def test_cli_day0_solution_ok(dummy_input):
     # When I invoke "poetry run aoc --solution2 --day 0 --input-file dummy.txt"
     cmd = CMD_ROOT + [
         "--solution2",
+        "--year",
+        "2021",
         "--day",
         "0",
         "--input-file",
@@ -89,6 +91,8 @@ def test_day30_nosolution2_fails(dummy_input):
     # Given a dummy input file
     # When I invoke "poetry run aoc --solution2 --day 30 --input-file dummy.txt"
     cmd = CMD_ROOT + [
+        "--year",
+        "2021",
         "--solution2",
         "--day",
         "29",

@@ -8,7 +8,7 @@ from advent_of_code.solutions_lookup import SOLUTIONS_LOOKUP
 
 def parse_arguments(arguments: list[str]) -> argparse.Namespace:
     """Parse generic arguments, given as parameters"""
-    parser = argparse.ArgumentParser("aoc", description="Advent of Code runner 2021")
+    parser = argparse.ArgumentParser("aoc", description="Advent of Code runner")
     parser.add_argument("-y", "--year", type=int, help="What year to use for problem")
     parser.add_argument(
         "-d", "--day", type=int, required=True, help="What day's problem to solve"
@@ -22,7 +22,7 @@ def parse_arguments(arguments: list[str]) -> argparse.Namespace:
     )
     parser.add_argument("-1", "--solution1", dest="solution2", action="store_false")
     parser.add_argument("-2", "--solution2", dest="solution2", action="store_true")
-    parser.set_defaults(solution2=False, year=2021)
+    parser.set_defaults(solution2=False, year=2023)
     return parser.parse_args(arguments)
 
 
