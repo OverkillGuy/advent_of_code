@@ -1,20 +1,28 @@
 """Day 1 solution to AoC 2024"""
 
-SAMPLE_INPUT = """3   4
-4   3
-2   5
-1   3
-3   9
-3   3"""
-
 Location = int
 LocationList = list[Location]
 PuzzleInput = tuple[LocationList, LocationList]
 
 
+SAMPLE_INPUT_STR = """3   4
+4   3
+2   5
+1   3
+3   9
+3   3"""
+SAMPLE_INPUT: PuzzleInput = ([3, 4, 2, 1, 3, 3], [4, 3, 5, 3, 9, 3])
+
+
 def solution1(puzzle_input: PuzzleInput) -> int:
-    """Solve day1 part 1"""
-    return 0
+    """Solve day1 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    11
+    """
+    left_list, right_list = puzzle_input
+    sorted_left, sorted_right = sorted(left_list), sorted(right_list)
+    return sum([abs(left - right) for left, right in zip(sorted_left, sorted_right)])
 
 
 def solution2(puzzle_input: PuzzleInput) -> int:
@@ -25,7 +33,7 @@ def solution2(puzzle_input: PuzzleInput) -> int:
 def read_puzzle_input(puzzle_input: str) -> PuzzleInput:
     """Process the puzzle input string
 
-    >>> read_puzzle_input(SAMPLE_INPUT)
+    >>> read_puzzle_input(SAMPLE_INPUT_STR)
     ([3, 4, 2, 1, 3, 3], [4, 3, 5, 3, 9, 3])
     """
     lines = puzzle_input.splitlines()
