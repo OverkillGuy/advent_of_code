@@ -1,6 +1,5 @@
 """Day 1 solution to AoC 2023"""
 
-
 from advent_of_code.input_conversion import to_string_list
 
 SAMPLE_INPUT = [

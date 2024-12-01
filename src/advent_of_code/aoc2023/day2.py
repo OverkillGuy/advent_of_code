@@ -1,4 +1,5 @@
 """Day 2 solution to AoC 2023"""
+
 import re
 from functools import reduce
 from operator import mul
