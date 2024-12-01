@@ -1,5 +1,7 @@
 """Day 1 solution to AoC 2024"""
 
+from collections import Counter
+
 Location = int
 LocationList = list[Location]
 PuzzleInput = tuple[LocationList, LocationList]
@@ -26,8 +28,18 @@ def solution1(puzzle_input: PuzzleInput) -> int:
 
 
 def solution2(puzzle_input: PuzzleInput) -> int:
-    """Solve day1 part 2"""
-    return 0
+    """Solve day1 part 2
+
+    >>> solution2(SAMPLE_INPUT)
+    31
+    """
+    left_list, right_list = puzzle_input
+    right_counter = Counter(right_list)
+    sum = 0
+    for left_digit in left_list:
+        right_occurences = right_counter.get(left_digit, 0)
+        sum += left_digit * right_occurences
+    return sum
 
 
 def read_puzzle_input(puzzle_input: str) -> PuzzleInput:
