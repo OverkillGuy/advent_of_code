@@ -21,7 +21,24 @@ SAMPLE_INPUT: PuzzleInput = [
 ]
 
 
-def solution1(puzzle_input) -> int:
+def is_safe(report: Report) -> bool:
+    """Computes if a report is safe
+
+    >>> is_safe(SAMPLE_INPUT[0])
+    True
+    >>> is_safe(SAMPLE_INPUT[-1])
+    True
+    >>> [is_safe(i) for i in SAMPLE_INPUT[1:-1]]
+    [False, False, False, False]
+    """
+    diffs = [n0 - n1 for n0, n1 in zip(report[:-1], report[1:])]
+    diff_is_negative = [diff < 0 for diff in diffs]
+    if not all(diff == diff_is_negative[0] for diff in diff_is_negative[1:]):
+        return False
+    return all(1 <= abs(diff) <= 3 for diff in diffs)
+
+
+def solution1(puzzle_input: PuzzleInput) -> int:
     """Solve day2 part 1"""
     return 0
 
