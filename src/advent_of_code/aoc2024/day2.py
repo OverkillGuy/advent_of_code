@@ -38,9 +38,13 @@ def is_safe(report: Report) -> bool:
     return all(1 <= abs(diff) <= 3 for diff in diffs)
 
 
-def solution1(puzzle_input: PuzzleInput) -> int:
-    """Solve day2 part 1"""
-    return 0
+def solution1(reports: PuzzleInput) -> int:
+    """Solve day2 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    2
+    """
+    return sum(is_safe(report) for report in reports)
 
 
 def solution2(puzzle_input) -> int:
