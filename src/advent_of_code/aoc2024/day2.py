@@ -1,5 +1,7 @@
 """Day 2 solution to AoC 2024"""
 
+from copy import copy
+
 Level = int
 Report = list[Level]
 PuzzleInput = list[Report]
@@ -47,9 +49,29 @@ def solution1(reports: PuzzleInput) -> int:
     return sum(is_safe(report) for report in reports)
 
 
-def solution2(puzzle_input) -> int:
+def safe_with_1skip(report: Report) -> bool:
+    """Retry the is_safe func with replaced one level in report
+
+    >>> safe_with_1skip(SAMPLE_INPUT[0]), safe_with_1skip(SAMPLE_INPUT[-1])
+    (True, True)
+    >>> safe_with_1skip(SAMPLE_INPUT[-3]), safe_with_1skip(SAMPLE_INPUT[-2])
+    (True, True)
+    >>> safe_with_1skip(SAMPLE_INPUT[1]), safe_with_1skip(SAMPLE_INPUT[2])
+    (False, False)
+    """
+    if is_safe(report):
+        return True  # No alteration needed!
+    for index in range(len(report)):
+        altered_report = copy(report)
+        altered_report.pop(index)
+        if is_safe(altered_report):
+            return True
+    return False
+
+
+def solution2(reports: PuzzleInput) -> int:
     """Solve day2 part 2"""
-    return 0
+    return sum(safe_with_1skip(report) for report in reports)
 
 
 def read_puzzle_input(puzzle_input: str) -> PuzzleInput:
