@@ -44,7 +44,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.pytest.ini_options]
-addopts = """-vv \
+addopts = """-vvvv \
       --doctest-modules \
       --cov=advent_of_code \
       --cov-report=xml:test_results/coverage.xml \
