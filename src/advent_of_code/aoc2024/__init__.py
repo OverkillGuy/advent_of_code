@@ -10,5 +10,6 @@ SOLUTIONS_2024: dict[Day, dict[Part, Callable]] = {
     2: {1: day2.solve1_string, 2: day2.solve2_string},
     3: {
         1: day3.solve1_string,
+        2: day3.solve2_string,
     },
 }
