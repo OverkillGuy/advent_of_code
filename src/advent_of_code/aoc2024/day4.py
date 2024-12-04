@@ -6,17 +6,6 @@ import numpy as np
 
 XMAS_REGEX = re.compile("XMAS")
 
-SAMPLE_INPUT1 = """....XXMAS.
-.SAMXMS...
-...S..A...
-..A.A.MS.X
-XMASAMX.MM
-X.....XA.A
-S.S.S.S.SS
-.A.A.A.A.A
-..M.M.M.MM
-.X.X.XMASX"""
-
 
 SAMPLE_INPUT = """MMMSXXMASM
 MSAMXMSMSA
@@ -36,7 +25,6 @@ def count_xmas(lines: list[str]) -> int:
     acc = 0
     for line in lines:
         count = len(XMAS_REGEX.findall(line))
-        print(f"{line=}{count=}")
         acc += count
     return acc
 
@@ -45,40 +33,43 @@ def generate_diagonals(array):
     """Generate the diagonal strings from a given array"""
     min_size = len("XMAS")
     width = array.shape[0] - min_size
-    low, high = -width, +width
-    diags = ["".join(np.diagonal(array, offset=i).tolist()) for i in range(low, high)]
-    diags_reverse = [
-        "".join(np.diagonal(array, offset=i).tolist()[::-1]) for i in range(low, high)
+    w_low, w_high = (
+        -width,
+        width + 1,
+    )  # range stops at end - 1, so offset by one to include
+    height = array.shape[1] - min_size
+    h_low, h_high = -height, height + 1
+    diags = [
+        "".join(np.diagonal(array, offset=i).tolist()) for i in range(w_low, w_high)
     ]
-    flipped = np.flip(array)
+    diags_reverse = [line[::-1] for line in diags]
+    flipped = np.flip(array, axis=0)
     diags_flip = [
-        "".join(np.diagonal(flipped, offset=i).tolist()) for i in range(low, high)
+        "".join(np.diagonal(flipped, offset=i).tolist()) for i in range(h_low, h_high)
     ]
-    diags_flip_reverse = [
-        "".join(np.diagonal(flipped, offset=i).tolist()[::-1]) for i in range(low, high)
-    ]
+    diags_flip_reverse = [line[::-1] for line in diags_flip]
     return [diags, diags_reverse, diags_flip, diags_flip_reverse]
 
 
 def generate_flips(arr) -> list[list[str]]:
     """Generate the flipped versions of the input"""
     horizontal = ["".join(list(arr[i, :])) for i in range(arr.shape[0])]
-    h_reverse = ["".join(list(arr[i, :])[::-1]) for i in range(arr.shape[0])]
+    h_reverse = [line[::-1] for line in horizontal]
     vertical = ["".join(list(arr[:, i])) for i in range(arr.shape[1])]
-    v_reverse = ["".join(list(arr[:, i])[::-1]) for i in range(arr.shape[1])]
+    v_reverse = [line[::-1] for line in vertical]
     return [horizontal, h_reverse, vertical, v_reverse]
 
 
 def solution1(puzzle_input) -> int:
     """Solve day4 part 1
 
-    >>> solution1(SAMPLE_INPUT1)
+    >>> solution1(SAMPLE_INPUT)
     18
     """
     acc = 0
     arr = np.array([list(line) for line in puzzle_input.splitlines()])
     variants = generate_flips(arr) + generate_diagonals(arr)
-    for lines in variants:
+    for variant_index, lines in enumerate(variants):
         acc += count_xmas(lines)
     return acc
 
