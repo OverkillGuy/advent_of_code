@@ -2,6 +2,8 @@
 
 from collections import defaultdict
 
+import graphlib
+
 PrevDict = dict[int, set[int]]
 Update = list[int]
 UpdateList = list[Update]
@@ -57,9 +59,43 @@ SAMPLE_INPUT_UPDATES: UpdateList = [
 SAMPLE_INPUT: Day5Input = (SAMPLE_INPUT_PREV, SAMPLE_INPUT_UPDATES)
 
 
-def solution1(puzzle_input) -> int:
-    """Solve day5 part 1"""
-    return 0
+def toposort(input: PrevDict) -> list[int]:
+    """Topological sort of the input dict, with higher numbers first"""
+    ts = graphlib.TopologicalSorter(input)
+    return list(reversed(list(ts.static_order())))
+
+
+def is_valid(update: Update, toposorted: list[int]) -> bool:
+    """Check if an update is valid
+
+    >>> toposorted = toposort(SAMPLE_INPUT_PREV)
+    >>> [is_valid(SAMPLE_INPUT_UPDATES[i], toposorted) for i in range(6)]
+    [True, True, True, False, False, False]
+    """
+    topo_cursor = 0  # Last checked update page index in topo list
+    for page in update:
+        page_topo_index = toposorted.index(page)
+        # Out of order = last page is AFTER this one in topo
+        if topo_cursor > page_topo_index:
+            return False
+        topo_cursor = page_topo_index
+    return True
+
+
+def solution1(puzzle_input: Day5Input) -> int:
+    """Solve day5 part 1
+
+    >>> solution1(SAMPLE_INPUT)
+    143
+    """
+    prevs, updates = puzzle_input
+    toposorted = toposort(prevs)
+    acc = 0
+    for update in updates:
+        if is_valid(update, toposorted):
+            page_middle = len(update) // 2
+            acc += update[page_middle]
+    return acc
 
 
 def solution2(puzzle_input) -> int:
